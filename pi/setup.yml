@@ -1,0 +1,25 @@
+- name: Setup sane defaults for Raspbian
+  hosts: hydra  
+  become: true
+  roles:
+    - role: raspbian
+
+- name: Install k3s and configure cgroups
+  hosts: hydra  
+  become: true
+  roles:
+    - role: k3s-common
+
+- name: Configure k3s control plane
+  hosts: control
+  become: true
+  roles:
+    - role: k3s-control
+
+- name: Provision agent nodes
+  hosts: agent
+  gather_facts: yes
+  become: true
+  roles:
+    - role: k3s-agents
+

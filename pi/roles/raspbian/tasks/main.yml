@@ -1,0 +1,21 @@
+---
+
+- import_tasks: apt.yml
+  tags:
+    - apt
+
+- import_tasks: locale.yml
+  tags:
+    - locale
+
+- import_tasks: user.yml
+  tags:
+    - user
+
+- import_tasks: ssh.yml
+  tags:
+    - ssh
+
+- import_tasks: hostname.yml
+  tags:
+    - hostname

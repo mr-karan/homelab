@@ -1,0 +1,5 @@
+---
+
+- import_tasks: control.yml
+  tags:
+    - control

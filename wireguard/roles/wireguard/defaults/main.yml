@@ -1,0 +1,30 @@
+---
+# Directory to store WireGuard configuration on the remote hosts
+wireguard_remote_directory: "/etc/wireguard"
+
+# The default port WireGuard will listen if not specified otherwise.
+wireguard_port: "51820"
+
+# The default interface name that wireguard should use if not specified otherwise.
+wireguard_interface: "wg0"
+
+# The default address for wireguard server for other peers to connect to.
+wireguard_address: "10.200.200.1/24"
+
+# wireguard_preup:
+#   - echo 1 > /proc/sys/net/ipv4/ip_forward
+#   - ufw allow 51820/udp
+
+wireguard_postup:
+  # Configure iptables to setup a NAT on eth0 and forward the packets (ipv4 and ipv6) on interface wg0 to eth0
+  - iptables -A FORWARD -i wg0 -j ACCEPT
+  - iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+  - ip6tables -A FORWARD -i wg0 -j ACCEPT
+  - ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+wireguard_postdown:
+  # Delete the rule since when wireguard is down, wg0 doesn't exist
+  - iptables -D FORWARD -i wg0 -j ACCEPT
+  - iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+  - ip6tables -D FORWARD -i wg0 -j ACCEPT
+  - ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE

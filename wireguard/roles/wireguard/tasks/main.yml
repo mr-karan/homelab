@@ -1,0 +1,84 @@
+---
+
+- import_tasks: setup.yml
+  tags: wg-install
+
+- name: Set WireGuard IP (without mask)
+  set_fact:
+    wireguard_ip: "{{ wireguard_address.split('/')[0] }}"
+
+- name: Register if config/private key already exists on target host
+  stat:
+    path: "{{ wireguard_remote_directory }}/{{ wireguard_interface }}.conf"
+  register: config_file_stat
+  tags:
+    - wg-generate-keys
+    - wg-config
+
+- block:
+  - name: Generate WireGuard private key
+    shell: "wg genkey"
+    register: wg_private_key_result
+    tags:
+      - wg-generate-keys
+
+  - name: Set private key fact
+    set_fact:
+      private_key: "{{ wg_private_key_result.stdout }}"
+    tags:
+      - wg-generate-keys
+  when: not config_file_stat.stat.exists
+
+- block:
+  - name: Read WireGuard config file
+    slurp:
+      src: "{{ wireguard_remote_directory }}/{{ wireguard_interface }}.conf"
+    register: wg_config
+    tags:
+      - wg-config
+
+  - name: Set private key fact
+    set_fact:
+      private_key: "{{ wg_config['content'] | b64decode | regex_findall('PrivateKey = (.*)') | first }}"
+    tags:
+      - wg-config
+  when: config_file_stat.stat.exists
+
+- name: Derive WireGuard public key
+  shell: "echo '{{ private_key }}' | wg pubkey" # noqa 306
+  register: wg_public_key_result
+  changed_when: false
+  tags:
+    - wg-config
+
+- name: Set public key fact
+  set_fact:
+    public_key: "{{ wg_public_key_result.stdout }}"
+  tags:
+    - wg-config
+
+- name: Create WireGuard configuration directory
+  file:
+    dest: "{{ wireguard_remote_directory }}"
+    state: directory
+    mode: 0700
+  tags:
+    - wg-config
+
+- name: Generate WireGuard configuration file
+  template:
+    src: wg.conf.j2
+    dest: "{{ wireguard_remote_directory }}/{{ wireguard_interface }}.conf"
+    owner: root
+    group: root
+    mode: 0600
+  tags:
+    - wg-config
+  notify:
+    - restart wireguard
+
+- name: Start and enable WireGuard service
+  service:
+    name: "wg-quick@{{ wireguard_interface }}"
+    state: started
+    enabled: yes

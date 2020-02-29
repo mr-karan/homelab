@@ -1,0 +1,6 @@
+ssh_sshd_config: "/etc/ssh/sshd_config"
+ssh_banner: Welcome to Hydra! The HomeLab Server.
+# interface: eth0
+# ip_address: 
+# routers: 
+# dns_servers: 

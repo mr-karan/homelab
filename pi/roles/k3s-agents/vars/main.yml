@@ -1,0 +1,3 @@
+systemd_dir: /etc/systemd/system
+k3s_server_address: "{{ hostvars[groups['control'][0]].k3s_server_address }}"
+k3s_cluster_token: "{{ hostvars[groups['control'][0]].k3s_cluster_token }}"

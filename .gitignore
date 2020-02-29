@@ -1,0 +1,11 @@
+.vagrant
+packer*
+www
+inventory
+*.tfvars
+.terraform.tfstate.lock.info
+.terraform
+*.tfstate
+*.tfstate.backup
+*.backup
+*.env

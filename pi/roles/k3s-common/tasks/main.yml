@@ -1,0 +1,5 @@
+---
+
+- import_tasks: common.yml
+  tags:
+    - common
