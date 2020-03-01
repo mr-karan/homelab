@@ -16,6 +16,18 @@ resource "digitalocean_firewall" "web" {
   }
 }
 
+resource "digitalocean_firewall" "vpn" {
+  name = "vpn-inbound"
+
+  droplet_ids = [digitalocean_droplet.alphard.id]
+
+  inbound_rule {
+    protocol         = "udp"
+    port_range       = "51820"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+}
+
 resource "digitalocean_firewall" "ssh" {
   name = "ssh-inbound"
 
