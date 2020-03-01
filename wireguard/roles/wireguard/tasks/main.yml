@@ -75,7 +75,7 @@
   tags:
     - wg-config
   notify:
-    - restart wireguard
+    - reconfigure wireguard
 
 - name: Check if reload-module-on-update is set
   stat:
