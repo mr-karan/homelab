@@ -1,0 +1,15 @@
+namespace: adguard
+resources:
+  - namespace.yml
+  - adguard/adguard-deployment.yml
+  - adguard/adguard-dns-service.yml
+  - adguard/adguard-service.yml
+  - adguard/adguard-web-service.yml
+configMapGenerator:
+  - name: app-config
+    files:
+      - AdGuardHome.yaml=configs/AdGuardHome.yaml
+patchesStrategicMerge:
+  - patches/init-container.yml
+  - patches/add-config-volume.yml
+  - patches/nodeport-hardcode.yml

@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard
+spec:
+  template:
+    spec:
+      volumes:
+        - name: tmp-config-volume
+          configMap:
+            name: app-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard
+spec:
+  template:
+    spec:
+      volumes:
+        - name: config-volume
+          emptyDir: {}

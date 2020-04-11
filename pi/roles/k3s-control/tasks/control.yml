@@ -48,12 +48,12 @@
     path: /var/lib/rancher/k3s/server
     mode: "{{ p.stat.mode }}"
 
-- name: Copy config file to user home directory
-  copy:
-    src: /etc/rancher/k3s/k3s.yaml
-    dest: /home/{{ ansible_user }}/.kube/config
-    remote_src: yes
-    owner: "{{ ansible_user }}"
+# - name: Copy config file to user home directory
+#   copy:
+#     src: /etc/rancher/k3s/k3s.yaml
+#     dest: /home/{{ ansible_user }}/.kube/config
+#     remote_src: yes
+#     owner: "{{ ansible_user }}"
 
 - name: Set server address
   set_fact:
@@ -68,4 +68,4 @@
   replace:
     path: /home/{{ ansible_user }}/.kube/config
     regexp: 'https://localhost:6443'
-    replace: 'https://{{k3s_server_address}}'
+    replace: '{{k3s_server_address}}'

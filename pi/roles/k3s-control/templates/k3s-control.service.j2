@@ -9,6 +9,7 @@ ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
 ExecStart=/usr/local/bin/k3s \
     server \
+    --write-kubeconfig 644
 
 KillMode=process
 Delegate=yes

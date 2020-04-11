@@ -9,3 +9,4 @@ inventory
 *.tfstate.backup
 *.backup
 *.env
+AdGuardHome.yaml

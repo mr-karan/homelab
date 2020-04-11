@@ -15,6 +15,7 @@
   become: true
   roles:
     - role: k3s-control
+      # tags: [ control ]
 
 - name: Provision agent nodes
   hosts: agent
@@ -22,4 +23,6 @@
   become: true
   roles:
     - role: k3s-agents
+      # tags: [ agents ]
+
 

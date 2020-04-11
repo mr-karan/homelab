@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard
+  labels:
+    service: adguard
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: init-adguard
+          image: balenalib/armv7hf-debian:run
+          command: [
+            "sh",
+            "-c",
+            "cp /config/AdGuardHome.yaml /app"
+          ]
+          volumeMounts:
+          - name: tmp-config-volume
+            mountPath: "/config"
+          - name: config-volume
+            mountPath: "/app"

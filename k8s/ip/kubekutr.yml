@@ -2,7 +2,7 @@ workloads:
   - name: nginx-ip
     deployments:
       - name: nginx
-        replicas: 3
+        replicas: 2
         labels:
           - name: 'service: nginx'
           - name: 'tier: proxy'

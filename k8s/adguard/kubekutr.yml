@@ -1,0 +1,60 @@
+workloads:
+  - name: adguard
+    deployments:
+      - name: adguard
+        replicas: 1
+        labels:
+          - name: 'service: adguard'
+          - name: 'tier: dns'
+        containers:
+          - name: adguard
+            createService: true
+            image: 'adguard/adguardhome:armhf-edge'
+            ports:
+            - name: dns-port
+              port: 53
+            - name: web-port
+              port: 3000
+            cpuLimits: 180m
+            memoryLimits: 200Mi
+            cpuRequests: 90m
+            memoryRequests: 100Mi
+            volumeMounts:
+              - name: tmp-config-volume
+                mountPath: /config
+              - name: config-volume
+                mountPath: /app
+        volumes:
+          - name: tmp-config-volume
+          - name: config-volume
+    services:
+      - name: adguard-dns
+        type: NodePort
+        ports:
+          - name: dot-port
+            targetPort: dns-port
+            port: 53
+            protocol: TCP
+          - name: dns-port
+            targetPort: dns-port
+            port: 53
+            protocol: UDP
+        labels:
+          - name: 'service: adguard'
+          - name: 'tier: dns'
+        selectors:
+          - name: 'tier: dns'
+          - name: 'service: adguard'
+      - name: adguard-web
+        type: NodePort
+        ports:
+          - name: web-port
+            targetPort: web-port
+            port: 3000
+        labels:
+          - name: 'service: adguard'
+          - name: 'tier: web'
+        selectors:
+          - name: 'tier: dns'
+          - name: 'service: adguard'
+
