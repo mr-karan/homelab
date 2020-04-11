@@ -1,0 +1,39 @@
+workloads:
+  - name: nginx-ip
+    deployments:
+      - name: nginx
+        replicas: 3
+        labels:
+          - name: 'service: nginx'
+          - name: 'tier: proxy'
+        containers:
+          - name: nginx
+            createService: true
+            image: 'nginx:latest'
+            ports:
+            - name: proxy-port
+              port: 80
+            cpuLimits: 80m
+            memoryLimits: 60Mi
+            cpuRequests: 40m
+            memoryRequests: 30Mi
+            volumeMounts:
+              - name: app-conf-dir
+                mountPath: /etc/nginx/conf.d
+              - name: nginxconfig-dir
+                mountPath: /etc/nginx/conf.d/nginxconfig.io
+        volumes:
+          - name: app-conf-dir
+          - name: nginxconfig-dir
+    services:
+      - name: nginx
+        type: NodePort
+        ports:
+          - name: proxy-port
+            targetPort: proxy-port
+            port: 80
+        labels:
+          - name: 'service: nginx'
+        selectors:
+          - name: 'tier: proxy'
+          - name: 'service: nginx'

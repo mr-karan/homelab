@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    service: nginx
+    tier: proxy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: nginx
+      tier: proxy
+  template:
+    metadata:
+      labels:
+        service: nginx
+        tier: proxy
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+          name: proxy-port
+        resources:
+          requests:
+            memory: 30Mi
+            cpu: 40m
+          limits:
+            memory: 60Mi
+            cpu: 80m
+        volumeMounts:
+        - mountPath: /etc/nginx/conf.d
+          name: app-conf-dir
+        - mountPath: /etc/nginx/conf.d/nginxconfig.io
+          name: nginxconfig-dir
+      volumes:
+        - name: app-conf-dir
+        - name: nginxconfig-dir

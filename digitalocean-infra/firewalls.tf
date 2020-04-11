@@ -23,7 +23,7 @@ resource "digitalocean_firewall" "vpn" {
 
   inbound_rule {
     protocol         = "udp"
-    port_range       = "51820"
+    port_range       = "1-65535"
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
 }

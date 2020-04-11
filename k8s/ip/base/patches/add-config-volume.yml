@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  template:
+    spec:
+      volumes:
+        - name: app-conf-dir
+          configMap:
+            name: app-config
+            items:
+            - key: ip.conf
+              path: ip.conf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  template:
+    spec:
+      volumes:
+        - name: nginxconfig-dir
+          configMap:
+            name: app-config
+            items:
+            - key: security.conf
+              path: security.conf
+            - key: general.conf
+              path: general.conf

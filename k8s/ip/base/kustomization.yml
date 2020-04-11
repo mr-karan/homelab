@@ -1,0 +1,13 @@
+namespace: ip
+resources:
+  - namespace.yml
+  - nginx-ip/nginx-deployment.yml
+  - nginx-ip/nginx-service.yml
+configMapGenerator:
+  - name: app-config
+    files:
+      - ip.conf=configs/ip.conf
+      - general.conf=configs/general.conf
+      - security.conf=configs/security.conf
+patchesStrategicMerge:
+  - patches/add-config-volume.yml
