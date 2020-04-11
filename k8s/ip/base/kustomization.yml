@@ -11,3 +11,4 @@ configMapGenerator:
       - security.conf=configs/security.conf
 patchesStrategicMerge:
   - patches/add-config-volume.yml
+  - patches/nodeport-hardcode.yml
