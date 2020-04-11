@@ -1,0 +1,5 @@
+namespace: unbound
+resources:
+  - namespace.yml
+  - unbound/unbound-deployment.yml
+  - unbound/unbound-service.yml

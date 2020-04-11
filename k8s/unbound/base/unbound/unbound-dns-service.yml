@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unbound-dns
+  labels:
+    service: unbound
+spec:
+  ports:
+  - port: 53
+    name: dns-port
+    targetPort: 53
+    protocol: UDP
+  type: NodePort
+  selector:
+    service: unbound

@@ -2,9 +2,9 @@ namespace: adguard
 resources:
   - namespace.yml
   - adguard/adguard-deployment.yml
-  - adguard/adguard-dns-service.yml
   - adguard/adguard-service.yml
   - adguard/adguard-web-service.yml
+  - dns-svc.yml
 configMapGenerator:
   - name: app-config
     files:

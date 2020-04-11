@@ -28,23 +28,6 @@ workloads:
           - name: tmp-config-volume
           - name: config-volume
     services:
-      - name: adguard-dns
-        type: NodePort
-        ports:
-          - name: dot-port
-            targetPort: dns-port
-            port: 53
-            protocol: TCP
-          - name: dns-port
-            targetPort: dns-port
-            port: 53
-            protocol: UDP
-        labels:
-          - name: 'service: adguard'
-          - name: 'tier: dns'
-        selectors:
-          - name: 'tier: dns'
-          - name: 'service: adguard'
       - name: adguard-web
         type: NodePort
         ports:

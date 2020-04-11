@@ -1,0 +1,19 @@
+workloads:
+  - name: unbound
+    deployments:
+      - name: unbound
+        replicas: 2
+        labels:
+          - name: 'service: unbound'
+          - name: 'tier: dns'
+        containers:
+          - name: unbound
+            createService: true
+            image: 'mvance/unbound-rpi:latest'
+            ports:
+            - name: dns-port
+              port: 53
+            cpuLimits: 80m
+            memoryLimits: 100Mi
+            cpuRequests: 50m
+            memoryRequests: 50Mi
