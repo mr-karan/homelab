@@ -23,7 +23,7 @@ workloads:
               - name: tmp-config-volume
                 mountPath: /config
               - name: config-volume
-                mountPath: /app
+                mountPath: /opt/adguardhome/conf/
         volumes:
           - name: tmp-config-volume
           - name: config-volume

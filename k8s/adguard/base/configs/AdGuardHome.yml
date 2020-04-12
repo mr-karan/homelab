@@ -2,7 +2,7 @@ bind_host: 0.0.0.0
 bind_port: 3000
 users:
 - name: karan
-  password: ${ADGUARD_PASSWORD}
+  password: 
 language: ""
 rlimit_nofile: 0
 web_session_ttl: 720
@@ -31,7 +31,7 @@ dns:
   safebrowsing_block_host: standard-block.dns.adguard.com
   cache_size: 4194304
   upstream_dns:
-  - 1.1.1.1
+  - 192.168.31.217:30103
   filtering_enabled: true
   filters_update_interval: 24
   parental_sensitivity: 0

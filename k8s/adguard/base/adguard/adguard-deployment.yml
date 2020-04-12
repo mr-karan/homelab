@@ -37,7 +37,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: tmp-config-volume
-        - mountPath: /app
+        - mountPath: /opt/adguardhome/conf/
           name: config-volume
       volumes:
         - name: tmp-config-volume

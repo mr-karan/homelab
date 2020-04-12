@@ -1,14 +1,12 @@
-include base/configs/password.env
-export
-
 .PHONY: scaffold
 scaffold:
 	kubekutr -c kubekutr.yml scaffold -o .
 
 .PHONY: build-k8s-local
 build-k8s-local: scaffold
-	@envsubst < base/configs/Adguard.tmpl.yml | tee base/configs/AdGuardHome.yaml > /dev/null
-	@kustomize build base --load_restrictor none
+	export $(cat base/configs/password | xargs)
+	envsubst < base/configs/AdGuardHome.tmpl.yml | tee base/configs/AdGuardHome.yml > /dev/null
+	kustomize build base --load_restrictor none
 
 .PHONY: deploy-k8s-local
 deploy-k8s-local: build-k8s-local

@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: app-config
     files:
-      - AdGuardHome.yaml=configs/AdGuardHome.yaml
+      - AdGuardHome.yaml=configs/AdGuardHome.yml
 patchesStrategicMerge:
   - patches/init-container.yml
   - patches/add-config-volume.yml

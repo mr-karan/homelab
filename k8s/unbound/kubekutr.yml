@@ -17,3 +17,16 @@ workloads:
             memoryLimits: 100Mi
             cpuRequests: 50m
             memoryRequests: 50Mi
+    services:
+      - name: unbound-nodeport
+        type: NodePort
+        ports:
+          - name: dns-port
+            targetPort: 53
+            port: 53
+            protocol: UDP
+        labels:
+          - name: 'service: unbound'
+        selectors:
+          - name: 'service: unbound'
+

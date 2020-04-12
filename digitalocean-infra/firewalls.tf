@@ -26,6 +26,12 @@ resource "digitalocean_firewall" "vpn" {
     port_range       = "1-65535"
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "853"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
 }
 
 resource "digitalocean_firewall" "ssh" {
