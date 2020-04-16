@@ -6,3 +6,4 @@ resources:
   - unbound/unbound-nodeport-service.yml
 patchesStrategicMerge:
   - patches/nodeport-hardcode.yml
+  - patches/nodeselector.yml

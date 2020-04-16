@@ -32,4 +32,3 @@ resource "digitalocean_floating_ip" "alphard" {
   droplet_id = digitalocean_droplet.alphard.id
   region     = digitalocean_droplet.alphard.region
 }
-

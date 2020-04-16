@@ -2,7 +2,7 @@ bind_host: 0.0.0.0
 bind_port: 3000
 users:
 - name: karan
-  password: 
+  password: $2a$10$8nOFMPmxR6cP/JnZmNgr2.JQiG09y5xWoVq7Rf2JZGe10qs4oQGIi
 language: ""
 rlimit_nofile: 0
 web_session_ttl: 720

@@ -9,7 +9,10 @@ ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
 ExecStart=/usr/local/bin/k3s \
     server \
-    --write-kubeconfig 644
+    --write-kubeconfig 644 \
+    --flannel-backend=host-gw \
+    --no-deploy traefik \
+    --no-deploy servicelb
 
 KillMode=process
 Delegate=yes
