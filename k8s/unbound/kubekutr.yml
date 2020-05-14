@@ -2,7 +2,7 @@ workloads:
   - name: unbound
     deployments:
       - name: unbound
-        replicas: 2
+        replicas: 1
         labels:
           - name: 'service: unbound'
           - name: 'tier: dns'

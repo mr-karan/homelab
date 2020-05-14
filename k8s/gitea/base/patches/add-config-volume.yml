@@ -1,0 +1,13 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+spec:
+  template:
+    spec:
+      volumes:
+        - name: data
+          hostPath:
+            path: "/data/gitea"
+            type: Directory

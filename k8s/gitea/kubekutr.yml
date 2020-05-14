@@ -1,0 +1,50 @@
+workloads:
+  - name: gitea
+    deployments:
+      - name: gitea
+        replicas: 1
+        labels:
+          - name: 'service: gitea'
+          - name: 'tier: web'
+        nodeSelector:
+          - name: 'kubernetes.io/arch: amd64'
+        containers:
+          - name: gitea
+            createService: true # will create nodeport
+            image: 'gitea/gitea:1.11'
+            ports:
+            - name: web-port
+              port: 3000
+            - name: ssh-port
+              port: 22
+            cpuLimits: 400m
+            memoryLimits: 350Mi
+            cpuRequests: 200m
+            memoryRequests: 150Mi
+            # envVars:
+            #   - name: "USER_UID"
+            #     value: "1000"
+            #   - name: "USER_GID"
+            #     value: "1000"
+            volumeMounts:
+              - name: data
+                mountPath: "/data"
+    services:
+      - name: gitea-nodeport
+        type: NodePort
+        ports:
+          - name: web
+            port: 3000
+            targetPort: web-port
+            nodePort: 30300
+            protocol: TCP
+          - name: ssh
+            port: 22
+            targetPort: ssh-port
+            nodePort: 30222
+            protocol: TCP
+        labels:
+          - name: 'service: gitea'
+        selectors:
+          - name: 'service: gitea'
+
