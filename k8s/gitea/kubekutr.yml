@@ -17,10 +17,10 @@ workloads:
               port: 3000
             - name: ssh-port
               port: 22
-            cpuLimits: 400m
-            memoryLimits: 350Mi
-            cpuRequests: 200m
-            memoryRequests: 150Mi
+            cpuLimits: 800m
+            memoryLimits: 650Mi
+            cpuRequests: 400m
+            memoryRequests: 450Mi
             # envVars:
             #   - name: "USER_UID"
             #     value: "1000"

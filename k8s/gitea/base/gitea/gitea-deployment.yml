@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: gitea
-        image: gitea/gitea:1.11
+        image: gitea/gitea:1.11.1
         ports:
         - containerPort: 3000
           name: web-port
@@ -28,11 +28,11 @@ spec:
           name: ssh-port
         resources:
           requests:
-            memory: 150Mi
-            cpu: 200m
-          limits:
-            memory: 350Mi
+            memory: 450Mi
             cpu: 400m
+          limits:
+            memory: 650Mi
+            cpu: 800m
         volumeMounts:
         - mountPath: /data
           name: data
