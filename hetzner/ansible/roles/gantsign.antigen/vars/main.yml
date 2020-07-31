@@ -1,0 +1,10 @@
+---
+# The root folder of this Antigen installation
+antigen_home: '~/.antigen'
+
+# File name for the Antigen redistributable installation file
+antigen_redis_filename: 'v{{ antigen_version }}.tar.gz'
+
+# Local file name for the Antigen redistributable installation file (needs to
+# have the package name to avoid conflicts)
+antigen_local_filename: 'antigen-{{ antigen_version }}.tar.gz'

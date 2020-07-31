@@ -1,0 +1,28 @@
+- name: Update apt cache and upgrade
+  apt:
+    update_cache: yes
+    upgrade: "yes"
+
+- name: Install dependencies
+  apt:
+      name: "{{ packages }}"
+  vars:
+      packages:
+        - apt-transport-https
+        - vim
+        - curl
+        - jq
+        - fzf
+
+- name: install unattended-upgrades
+  apt:
+    name: "unattended-upgrades"
+    state: present
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes

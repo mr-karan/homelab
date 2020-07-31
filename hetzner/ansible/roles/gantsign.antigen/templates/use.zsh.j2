@@ -1,0 +1,14 @@
+{{ ansible_managed | comment }}
+
+{% if antigen_library.env is defined and antigen_library.env not in (None, '', omit, {}) -%}
+    {%- for key, value in antigen_library.env.items() -%}
+        {{ key }}={{ value }}{{ "\n" }}
+    {%- endfor -%}
+    {{ "\n" }}
+{%- endif -%}
+antigen use {{ antigen_library.name | quote }}
+{%- if antigen_library.args is defined and antigen_library.args not in (None, '', omit) -%}
+    {%- for arg in antigen_library.args -%}
+        {{ " \\\n    " }}{{ arg | quote }}
+    {%- endfor -%}
+{%- endif %}

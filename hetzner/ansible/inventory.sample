@@ -1,0 +1,9 @@
+[hydra:children]
+srv1
+
+[srv1]
+srv1 ansible_ssh_host=srv1 ansible_ssh_user=username ansible_ssh_port=22 remote_ssh_user=user
+
+[srv1:vars]
+username=username
+github_ssh_key_url=https://github.com/username.keys

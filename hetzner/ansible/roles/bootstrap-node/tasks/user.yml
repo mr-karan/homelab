@@ -1,0 +1,31 @@
+---
+
+- name: Make sure we have a 'wheel' group
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Create user and grant sudo access
+  user:
+    name: "{{username}}"
+    groups:
+      - wheel
+    append: yes
+    state: present
+    createhome: yes
+    shell: /bin/bash
+
+- name: Set authorized key for user
+  authorized_key:
+    user: "{{username}}"
+    state: present
+    key: "{{github_ssh_key_url}}"
+  when: github_ssh_key_url != None

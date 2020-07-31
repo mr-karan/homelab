@@ -1,0 +1,27 @@
+---
+# This is for the boot console only (i.e. not xterm, ssh or docker).
+# The oh-my-zsh prompt appears corrupted unless the console is in UTF-8.
+# If the console-setup file is missing don't create it... assume we're
+# running in an environment without a boot console (e.g. docker).
+- name: check if console-setup exists
+  stat:
+    path: /etc/default/console-setup
+  register: console_setup_file
+
+- name: install console-setup
+  become: yes
+  apt:
+    name: console-setup
+    state: present
+  when: console_setup_file.stat.exists
+
+- name: edit console-setup to utf-8
+  become: yes
+  lineinfile:
+    dest: /etc/default/console-setup
+    regexp: ^CHARMAP=
+    line: CHARMAP="UTF-8"
+    state: present
+  when: console_setup_file.stat.exists
+  notify:
+    - dpkg-reconfigure console-setup

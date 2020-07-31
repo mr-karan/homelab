@@ -1,0 +1,23 @@
+---
+
+- hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - bootstrap-node
+    - role: gantsign.antigen
+      users:
+        - username: "{{username}}"
+          antigen_libraries:
+            - name: oh-my-zsh
+          antigen_theme:
+            name: cloud
+          antigen_bundles:
+            # Bundles from the default repo (robbyrussell's oh-my-zsh).
+            - name: git
+            - name: pip
+            - name: fzf
+            - name: command-not-found
+            # Syntax highlighting bundle.
+            - name: zsh-syntax-highlighting # `name` is required (any valid file name will do so long as it's unique for the bundles)
+              url: zsh-users/zsh-syntax-highlighting

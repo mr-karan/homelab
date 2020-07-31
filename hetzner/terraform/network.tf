@@ -10,8 +10,8 @@ resource "hcloud_network_subnet" "hydra_private_subnet_0" {
   ip_range     = "10.0.1.0/24"
 }
 
-resource "hcloud_server_network" "main_primary_ntwrk" {
-  server_id = hcloud_server.main_primary.id
+resource "hcloud_server_network" "floyd_ntwrk" {
+  server_id = hcloud_server.floyd.id
   subnet_id = hcloud_network_subnet.hydra_private_subnet_0.id
   ip        = "10.0.1.5"
 }

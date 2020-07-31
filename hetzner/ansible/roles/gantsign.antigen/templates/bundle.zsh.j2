@@ -1,0 +1,33 @@
+{{ ansible_managed | comment }}
+
+{% if antigen_bundle.env is defined and antigen_bundle.env not in (None, '', omit, {}) -%}
+    {%- for key, value in antigen_bundle.env.items() -%}
+        {{ key }}={{ value }}{{ "\n" }}
+    {%- endfor -%}
+    {{ "\n" }}
+{%- endif -%}
+antigen bundle
+{%- if antigen_bundle.url is defined and antigen_bundle.url not in (None, '', omit) -%}
+    {{ " \\\n    "}}"--url={{ (antigen_bundle.url) | regex_replace('([\\"\\\\`]|\\$\\()', '\\\\\\1') }}"
+    {%- if antigen_bundle.tag is defined and antigen_bundle.tag not in (None, '', omit) -%}
+        {{ " \\\n    "}}{{ ('--branch=' + antigen_bundle.tag) | quote }}
+    {%- else -%}
+        {%- if antigen_bundle.branch is defined and antigen_bundle.branch not in (None, '', omit) -%}
+            {{ " \\\n    "}}{{ ('--branch=' + antigen_bundle.branch) | quote }}
+        {%- endif -%}
+    {%- endif -%}
+{%- else -%}
+    {%- if antigen_bundle.name is defined and antigen_bundle.name not in (None, '', omit) -%}
+        {{ " \\\n    "}}{{ ('--url=' + antigen_bundle.name) | quote }}
+    {%- endif -%}
+{%- endif -%}
+
+{%- if antigen_bundle.location is defined and antigen_bundle.location not in (None, '', omit) -%}
+    {{ " \\\n    "}}{{ ('--loc=' + antigen_bundle.location) | quote }}
+{%- endif -%}
+
+{%- if antigen_bundle.args is defined and antigen_bundle.args not in (None, '', omit) -%}
+    {%- for arg in antigen_bundle.args -%}
+        {{ " \\\n    " }}{{ arg | quote }}
+    {%- endfor -%}
+{%- endif %}

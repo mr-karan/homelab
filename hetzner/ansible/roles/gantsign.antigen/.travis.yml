@@ -1,0 +1,76 @@
+---
+language: python
+python: '2.7'
+
+env:
+  global:
+    - MOLECULEW_USE_SYSTEM=true
+
+# Spin off separate builds for each of the following versions
+# of Ansible and Linux.
+matrix:
+  include:
+    - env:
+        - MOLECULEW_ANSIBLE=2.5.10
+        - MOLECULE_SCENARIO=centos
+    - env:
+        - MOLECULEW_ANSIBLE=2.5.10
+        - MOLECULE_SCENARIO=debian_max
+    - env:
+        - MOLECULEW_ANSIBLE=2.5.10
+        - MOLECULE_SCENARIO=debian_min
+    - env:
+        - MOLECULEW_ANSIBLE=2.5.10
+        - MOLECULE_SCENARIO=ubuntu_max
+    - env:
+        - MOLECULEW_ANSIBLE=2.5.10
+        - MOLECULE_SCENARIO=ubuntu_min
+    - env:
+        - MOLECULEW_ANSIBLE=2.5.10
+        - MOLECULE_SCENARIO=opensuse
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.0
+        - MOLECULE_SCENARIO=centos
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.0
+        - MOLECULE_SCENARIO=debian_max
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.0
+        - MOLECULE_SCENARIO=debian_min
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.0
+        - MOLECULE_SCENARIO=ubuntu_max
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.0
+        - MOLECULE_SCENARIO=ubuntu_min
+    - env:
+        - MOLECULEW_ANSIBLE=2.7.0
+        - MOLECULE_SCENARIO=opensuse
+
+# Require the standard build environment
+sudo: required
+
+# Require Ubuntu 14.04
+dist: trusty
+
+# Require Docker
+services:
+  - docker
+
+install:
+  # Install dependencies
+  - ./moleculew wrapper-install
+
+  # Display versions
+  - ./moleculew wrapper-versions
+
+script:
+  - ./moleculew test --scenario-name=$MOLECULE_SCENARIO
+
+branches:
+  only:
+    - master
+    - /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)([\.\-].*)?$/
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -1,0 +1,69 @@
+---
+
+- name: disable ssh remote root login
+  lineinfile:
+    dest: "{{ ssh_sshd_config }}"
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+  notify:
+    - restart sshd
+
+- name: enable ssh strict mode
+  lineinfile:
+    dest: "{{ ssh_sshd_config }}"
+    regexp: "^#?StrictModes"
+    line: "StrictModes yes"
+    state: present
+  notify:
+    - restart sshd
+
+- name: disable X11 forwarding
+  lineinfile:
+    dest: "{{ ssh_sshd_config }}"
+    regexp: "^#?X11Forwarding"
+    line: "X11Forwarding no"
+    state: present
+  notify:
+    - restart sshd
+
+- name: disable ssh password login
+  lineinfile:
+    dest: "{{ ssh_sshd_config }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^#?PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    - regexp: "^#?ChallengeResponseAuthentication"
+      line: "ChallengeResponseAuthentication no"
+    - regexp: "^#?PermitEmptyPasswords"
+      line: "PermitEmptyPasswords no"
+  notify:
+    - restart sshd
+
+- name: set ssh allowed users to {{ username }}
+  lineinfile:
+    dest: "{{ ssh_sshd_config }}"
+    regexp: "^#?AllowUsers"
+    line: "AllowUsers {{ username }}"
+  notify:
+    - restart sshd
+  when: username != None
+
+- name: add ssh banner info
+  lineinfile:
+    dest: "{{ ssh_sshd_config }}"
+    regexp: "^#?Banner"
+    line: "Banner /etc/issue.net"
+    state: present
+  notify:
+    - restart sshd
+
+- name: update ssh banner
+  template:
+    src: ssh-banner.j2
+    dest: /etc/issue.net
+  notify:
+    - restart sshd

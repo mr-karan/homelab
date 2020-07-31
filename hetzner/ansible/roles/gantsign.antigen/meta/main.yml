@@ -1,0 +1,33 @@
+---
+galaxy_info:
+  author: John Freeman
+  role_name: antigen
+  description: Role for installing the Antigen plugin manger for Zsh and using it to configure Zsh.
+  company: GantSign Ltd.
+  license: MIT
+  min_ansible_version: 2.5
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 28
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+        - bionic
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+    - name: opensuse
+      versions:
+        - '15.0'
+  galaxy_tags:
+    - antigen
+    - ohmyzsh
+    - zsh
+    - shell
+dependencies: []

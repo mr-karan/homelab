@@ -1,0 +1,7 @@
+---
+
+- name: updating hostname to {{inventory_hostname}} from {{ansible_hostname}}
+  hostname:
+    name: "{{inventory_hostname}}"
+  notify:
+    - reboot
