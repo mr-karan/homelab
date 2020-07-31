@@ -1,0 +1,14 @@
+- name: Deny all incoming traffic and enable UFW
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming
+
+- name: Set logging
+  ufw:
+    logging: 'on'
+
+- name: UFW - Allow SSH connections
+  ufw:
+    rule: allow
+    name: OpenSSH
