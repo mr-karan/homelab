@@ -17,6 +17,7 @@
     - ssh
 
 - import_tasks: ufw.yml
+  become: yes
   tags:
     - ufw
 
@@ -25,6 +26,7 @@
     - timezone
 
 - import_tasks: docker.yml
+  become: yes
   tags:
     - docker
 

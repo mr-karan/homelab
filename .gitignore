@@ -10,3 +10,4 @@ inventory
 *.backup
 *.env
 AdGuardHome.yaml
+.ci-vault-pass

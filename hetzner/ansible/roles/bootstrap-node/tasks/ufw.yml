@@ -12,3 +12,12 @@
   ufw:
     rule: allow
     name: OpenSSH
+
+- name: Allow access to tcp port 80 from Tailscale CIDR
+  ufw:
+    rule: allow
+    port: "80"
+    src: "{{item}}"
+    proto: tcp
+  loop:
+    - 100.64.0.0/10

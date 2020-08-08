@@ -12,8 +12,9 @@
     regexp: '^%wheel'
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
     validate: 'visudo -cf %s'
+  when: ansible_user == "root"
 
-- name: Create user and grant sudo access
+- name: Add user to wheel group
   user:
     name: "{{username}}"
     groups:
@@ -22,10 +23,11 @@
     state: present
     createhome: yes
     shell: /bin/bash
+  when: ansible_user == "root"
 
 - name: Set authorized key for user
   authorized_key:
     user: "{{username}}"
     state: present
     key: "{{github_ssh_key_url}}"
-  when: github_ssh_key_url != None
+  when: github_ssh_key_url != None and ansible_user == username

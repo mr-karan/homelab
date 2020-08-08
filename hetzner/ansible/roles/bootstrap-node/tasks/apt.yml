@@ -1,9 +1,11 @@
 - name: Update apt cache and upgrade
+  become: yes
   apt:
     update_cache: yes
     upgrade: "yes"
 
 - name: Install dependencies
+  become: yes
   apt:
       name: "{{ packages }}"
   vars:
@@ -13,6 +15,13 @@
         - curl
         - jq
         - fzf
+        - python
+        - python3-pip
+        - python-apt
+        - python3-apt
+        - python-is-python3
+        - gnupg2
+        - gnupg-agent
 
 - name: install unattended-upgrades
   apt:
@@ -20,9 +29,11 @@
     state: present
 
 - name: Remove useless packages from the cache
+  become: yes
   apt:
     autoclean: yes
 
 - name: Remove dependencies that are no longer required
+  become: yes
   apt:
     autoremove: yes

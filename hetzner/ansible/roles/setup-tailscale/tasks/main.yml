@@ -1,0 +1,33 @@
+- name: Update apt cache and upgrade
+  apt:
+    update_cache: yes
+    upgrade: "yes"
+
+- name: Tailscale Signing Key
+  apt_key:
+    url: https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }}/{{ ansible_distribution_release | lower }}.gpg
+    state: present
+
+- name: Add Tailscale Deb
+  apt_repository:
+    repo: deb https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} main
+    state: present
+
+- name: Install Tailscale
+  apt:
+    name: tailscale
+    state: present
+    update_cache: yes
+  notify: enable tailscaled service
+
+- name: Check if Tailscale is connected
+  command: tailscale status
+  changed_when: false
+  register: tailscale_status
+
+# - name: Bring Tailscale Up
+#   become: yes
+#   command: tailscale up --authkey={{ tailscale_auth_key }}
+#   register: tailscale_start
+#   when: tailscale_status.stdout | length == 0
+#   notify: Confirm Tailscale is Connected

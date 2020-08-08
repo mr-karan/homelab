@@ -1,0 +1,14 @@
+- name: Create gitea project directory if it does not exist
+  file:
+    path: "{{gitea_project_dir}}"
+    state: directory
+
+- name: Copy gitea docker-compose
+  template:
+    src: gitea-docker-compose.yml.j2
+    dest: "{{gitea_project_dir}}/docker-compose.yml"
+
+- name: Start docker-compose
+  shell:
+    cmd: docker-compose up -d
+    chdir: "{{gitea_project_dir}}"

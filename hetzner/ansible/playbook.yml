@@ -1,11 +1,26 @@
 ---
 
 - hosts: all
-  become: yes
-  become_method: sudo
   roles:
-    - bootstrap-node
+    - role: bootstrap-node
+      tags:
+        - bootstrap
+    - role: setup-gitea
+      tags:
+        - gitea
+      vars:
+        - gitea_image_tag: 1.12.3
+        - gitea_project_dir: "{{ansible_env.HOME}}/services/gitea"
+    - role: setup-tailscale
+      become: yes
+      # vars:
+      #   tailscale_auth_key: !vault |
+      tags:
+        - tailscale
     - role: gantsign.antigen
+      tags:
+        - bootstrap
+        - zsh
       users:
         - username: "{{username}}"
           antigen_libraries:

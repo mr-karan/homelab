@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  server:
+    image: gitea/gitea:{{gitea_image_tag}}
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: always
+    networks:
+      - gitea
+    volumes:
+      - /data/gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "2221:22"
+
+networks:
+  gitea:
