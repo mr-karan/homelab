@@ -1,14 +1,12 @@
 version: "3.8"
 
 services:
-  server:
+  gitea:
     image: gitea/gitea:{{gitea_image_tag}}
     environment:
       - USER_UID=1000
       - USER_GID=1000
     restart: always
-    networks:
-      - gitea
     volumes:
       - /data/gitea:/data
       - /etc/timezone:/etc/timezone:ro
@@ -18,4 +16,6 @@ services:
       - "2221:22"
 
 networks:
-  gitea:
+  default:
+    external:
+      name: {{docker_external_network}}

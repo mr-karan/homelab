@@ -1,7 +1,7 @@
 resource "digitalocean_firewall" "web" {
-  name = "web-inbound"
+  name = "allow-http-https-cf-inbound"
 
-  droplet_ids = [digitalocean_droplet.alphard.id]
+  droplet_ids = [digitalocean_droplet.floyd.id]
   inbound_rule {
     protocol         = "tcp"
     port_range       = "80"
@@ -16,21 +16,9 @@ resource "digitalocean_firewall" "web" {
 }
 
 resource "digitalocean_firewall" "vpn" {
-  name = "vpn-inbound"
+  name = "allow-all-tailscale-inbound"
 
-  droplet_ids = [digitalocean_droplet.alphard.id]
-
-  inbound_rule {
-    protocol         = "udp"
-    port_range       = "1-65535"
-    source_addresses = ["0.0.0.0/0", "::/0"]
-  }
-
-  inbound_rule {
-    protocol         = "tcp"
-    port_range       = "853"
-    source_addresses = ["0.0.0.0/0", "::/0"]
-  }
+  droplet_ids = [digitalocean_droplet.floyd.id]
 
   inbound_rule {
     protocol         = "tcp"
@@ -49,7 +37,7 @@ resource "digitalocean_firewall" "vpn" {
 resource "digitalocean_firewall" "ssh" {
   name = "ssh-inbound"
 
-  droplet_ids = [digitalocean_droplet.alphard.id]
+  droplet_ids = [digitalocean_droplet.floyd.id]
 
   inbound_rule {
     protocol         = "tcp"
@@ -62,7 +50,7 @@ resource "digitalocean_firewall" "ssh" {
 resource "digitalocean_firewall" "outbound-all" {
   name = "allow-all-outbound"
 
-  droplet_ids = [digitalocean_droplet.alphard.id]
+  droplet_ids = [digitalocean_droplet.floyd.id]
 
   outbound_rule {
     protocol              = "tcp"

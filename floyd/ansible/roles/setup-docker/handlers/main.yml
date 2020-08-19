@@ -1,11 +1,3 @@
-- name: restart sshd
-  service:
-    name: ssh
-    state: restarted
-
-- name: reboot
-  reboot:
-
 - name: Start docker on boot
   systemd:
     name: docker

@@ -19,7 +19,6 @@
         - python3-pip
         - python-apt
         - python3-apt
-        - python-is-python3
         - gnupg2
         - gnupg-agent
 

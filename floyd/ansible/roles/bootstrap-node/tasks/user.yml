@@ -30,4 +30,4 @@
     user: "{{username}}"
     state: present
     key: "{{github_ssh_key_url}}"
-  when: github_ssh_key_url != None and ansible_user == username
+  when: github_ssh_key_url != None
