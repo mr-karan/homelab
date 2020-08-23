@@ -28,3 +28,8 @@ module "caddy" {
   ips                  = var.ips
   cloudflare_api_token = var.cloudflare_api_token
 }
+
+module "monitoring" {
+  source               = "./monitoring"
+  ips                  = var.ips
+}

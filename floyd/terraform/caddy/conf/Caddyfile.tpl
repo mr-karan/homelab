@@ -18,3 +18,10 @@ wiki.mrkaran.dev {
 	    dns cloudflare "${cloudflare_api_token}"
     }
 }
+
+grafana.mrkaran.dev {
+    reverse_proxy grafana:3000
+    tls {
+	    dns cloudflare "${cloudflare_api_token}"
+    }
+}
