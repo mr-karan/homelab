@@ -6,11 +6,11 @@ resource "digitalocean_ssh_key" "mrkaran" {
 
 # Create a new droplet in the blr1 region (master node)
 resource "digitalocean_droplet" "floyd" {
-  image  = "ubuntu-20-04-x64"
-  name   = "floyd"
-  region = "blr1"
-  monitoring = true
-  size   = "s-1vcpu-2gb"
+  image              = "ubuntu-20-04-x64"
+  name               = "floyd"
+  region             = "blr1"
+  monitoring         = true
+  size               = "s-1vcpu-2gb"
   ipv6               = true
   private_networking = true
   tags = [

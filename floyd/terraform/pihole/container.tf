@@ -8,7 +8,7 @@ resource "docker_container" "pihole" {
     host_path      = "/data/pihole/etc-pihole/"
     container_path = "/etc/pihole/"
   }
-  
+
   volumes {
     host_path      = "/data/pihole/etc-dnsmasq.d/"
     container_path = "/etc/dnsmasq.d/"
@@ -51,7 +51,15 @@ resource "docker_container" "pihole" {
   env = [
     "TZ=Asia/Kolkata",
   ]
-  
+
+  networks_advanced {
+    name = docker_network.pihole.name
+  }
+
+  networks_advanced {
+    name = "caddy"
+  }
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 30
   must_run              = true

@@ -8,7 +8,7 @@ resource "docker_container" "bookstack_db" {
     host_path      = "/data/bookstack"
     container_path = "/config"
   }
-  
+
   env = [
     "TZ=Asia/Kolkata",
     "MYSQL_DATABASE=bookstackapp",
@@ -18,8 +18,8 @@ resource "docker_container" "bookstack_db" {
     "PGID=1000"
   ]
 
-  networks_advanced  {
-    name    = docker_network.bookstack.name
+  networks_advanced {
+    name = docker_network.bookstack.name
   }
 
   restart               = "unless-stopped"

@@ -16,8 +16,12 @@ resource "docker_container" "bookstack" {
     protocol = "tcp"
   }
 
-  networks_advanced  {
-    name    = docker_network.bookstack.name
+  networks_advanced {
+    name = docker_network.bookstack.name
+  }
+
+  networks_advanced {
+    name = "caddy"
   }
 
   env = [
@@ -28,7 +32,7 @@ resource "docker_container" "bookstack" {
     "DB_PASS=${var.bookstack_mariadb_password}",
     "DB_DATABASE=bookstackapp"
   ]
-  
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 30
   must_run              = true
