@@ -30,7 +30,8 @@ resource "docker_container" "bookstack" {
     "DB_HOST=bookstack_db",
     "DB_USER=bookstack",
     "DB_PASS=${var.bookstack_mariadb_password}",
-    "DB_DATABASE=bookstackapp"
+    "DB_DATABASE=bookstackapp",
+    "APP_URL=https://wiki.mrkaran.dev",
   ]
 
   restart               = "unless-stopped"
