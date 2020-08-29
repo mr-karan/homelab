@@ -16,3 +16,13 @@ variable "cloudflare_api_token" {
   type        = string
   description = "API key to edit DNS zones in Cloudflare"
 }
+
+variable "firefly_postgres_password" {
+  type        = string
+  description = "Password for Firefly PostgreSQL server"
+}
+
+variable "firefly_app_key" {
+  type        = string
+  description = "32Char token uniquely generated to encrypt Firefly Sessions and Attachments"
+}

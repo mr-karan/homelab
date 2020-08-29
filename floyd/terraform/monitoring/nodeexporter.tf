@@ -14,19 +14,19 @@ resource "docker_container" "nodeexporter" {
   volumes {
     host_path      = "/proc"
     container_path = "/host/proc"
-    read_only = true
+    read_only      = true
   }
 
   volumes {
     host_path      = "/sys"
     container_path = "/host/sys"
-    read_only = true
+    read_only      = true
   }
 
   volumes {
     host_path      = "/"
     container_path = "/rootfs"
-    read_only = true
+    read_only      = true
   }
 
   networks_advanced {

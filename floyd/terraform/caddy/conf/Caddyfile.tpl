@@ -25,3 +25,14 @@ grafana.mrkaran.dev {
 	    dns cloudflare "${cloudflare_api_token}"
     }
 }
+
+firefly.mrkaran.dev {
+    reverse_proxy firefly:8080
+    tls {
+	    dns cloudflare "${cloudflare_api_token}"
+    }
+    header {
+        # https://docs.firefly-iii.org/installation/docker#docker-and-reverse-proxies
+        X-Forwarded-Proto https
+    }
+}

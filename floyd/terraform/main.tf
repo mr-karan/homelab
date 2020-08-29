@@ -30,6 +30,13 @@ module "caddy" {
 }
 
 module "monitoring" {
-  source               = "./monitoring"
-  ips                  = var.ips
+  source = "./monitoring"
+  ips    = var.ips
+}
+
+module "firefly" {
+  source                    = "./firefly"
+  ips                       = var.ips
+  firefly_postgres_password = var.firefly_postgres_password
+  firefly_app_key           = var.firefly_app_key
 }

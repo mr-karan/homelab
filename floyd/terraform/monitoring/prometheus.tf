@@ -24,7 +24,7 @@ resource "docker_container" "prometheus" {
   }
 
   upload {
-    content = "${file("${path.module}/conf/prometheus.yml")}"
+    content = file("${path.module}/conf/prometheus.yml")
     file    = "/etc/prometheus/prometheus.yml"
   }
 
