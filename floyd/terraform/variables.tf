@@ -2,8 +2,9 @@ variable "ips" {
   type = map
 
   default = {
-    tailscale_floyd = "100.101.134.59"
-    eth1            = "10.139.120.134"
+    tailscale_floyd   = "100.101.134.59"
+    tailscale_parvaaz = "100.94.241.54"
+    eth1              = "10.139.120.134"
   }
 }
 

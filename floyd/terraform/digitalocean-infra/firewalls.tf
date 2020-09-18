@@ -13,6 +13,18 @@ resource "digitalocean_firewall" "web" {
     port_range       = "443"
     source_addresses = ["100.64.0.0/10"]
   }
+
+}
+
+resource "digitalocean_firewall" "icmp" {
+  name = "allow-icmp-all"
+
+  droplet_ids = [digitalocean_droplet.floyd.id]
+  inbound_rule {
+    protocol         = "icmp"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
 }
 
 resource "digitalocean_firewall" "vpn" {

@@ -17,3 +17,8 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ["cadvisor:8080"]
+
+  - job_name: "ispmonitor"
+    scrape_interval: 60s
+    static_configs:
+      - targets: ["100.94.241.54:9283"] # RPi telegraf Agent

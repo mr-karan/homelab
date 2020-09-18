@@ -31,6 +31,8 @@ resource "docker_container" "firefly" {
     "DB_DATABASE=firefly",
     "TZ=Asia/Kolkata",
     "APP_URL=https://firefly.mrkaran.dev",
+    "APP_LOG_LEVEL=debug",
+    "MAIL_MAILER=log",
     "TRUSTED_PROXIES=**",
     "APP_KEY=${var.firefly_app_key}",
   ]
