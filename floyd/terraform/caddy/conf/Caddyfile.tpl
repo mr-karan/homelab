@@ -27,7 +27,7 @@ grafana.mrkaran.dev {
 }
 
 sync.mrkaran.dev {
-    reverse_proxy sync:8384
+    reverse_proxy syncthing:8384
     tls {
 	    dns cloudflare "${cloudflare_api_token}"
     }
