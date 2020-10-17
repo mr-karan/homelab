@@ -5,11 +5,6 @@ resource "docker_container" "syncthing" {
   image = docker_image.syncthing.latest
 
   volumes {
-    host_path      = "/data/syncthing/data"
-    container_path = "/data"
-  }
-
-  volumes {
     host_path      = "/data/syncthing/config"
     container_path = "/config"
   }
