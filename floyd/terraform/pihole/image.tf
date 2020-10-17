@@ -1,5 +1,5 @@
 data "docker_registry_image" "pihole" {
-  name = "pihole/pihole:v5.1.2"
+  name = "pihole/pihole:latest"
 }
 
 resource "docker_image" "pihole" {

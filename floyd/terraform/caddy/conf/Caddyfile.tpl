@@ -26,6 +26,14 @@ grafana.mrkaran.dev {
     }
 }
 
+sync.mrkaran.dev {
+    reverse_proxy sync:8384
+    tls {
+	    dns cloudflare "${cloudflare_api_token}"
+    }
+}
+
+
 firefly.mrkaran.dev {
     reverse_proxy firefly:8080
     tls {

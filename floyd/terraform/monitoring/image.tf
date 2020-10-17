@@ -8,7 +8,7 @@ resource "docker_image" "cadvisor" {
 }
 
 data "docker_registry_image" "grafana" {
-  name = "grafana/grafana:7.1.4-ubuntu"
+  name = "grafana/grafana:latest-ubuntu"
 }
 
 resource "docker_image" "grafana" {
@@ -17,7 +17,7 @@ resource "docker_image" "grafana" {
 }
 
 data "docker_registry_image" "prometheus" {
-  name = "prom/prometheus:v2.20.1"
+  name = "prom/prometheus:latest"
 }
 
 resource "docker_image" "prometheus" {

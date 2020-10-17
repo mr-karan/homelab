@@ -1,11 +1,11 @@
 provider "docker" {
-  alias = "floyd"
   host  = "ssh://floyd:22"
+  alias = "floyd"
 }
 
 provider "docker" {
-  alias = "parvaaz"
   host  = "ssh://parvaaz:22"
+  alias = "parvaaz"
 }
 
 provider "digitalocean" {

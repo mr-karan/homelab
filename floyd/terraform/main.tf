@@ -1,7 +1,7 @@
 module "hydra-infra" {
   source = "./digitalocean-infra"
   providers = {
-    docker = docker.floyd
+    digitalocean = digitalocean
   }
 }
 
@@ -29,14 +29,14 @@ module "gitea" {
   }
 }
 
-module "bookstack" {
-  source                     = "./bookstack"
-  ips                        = var.ips
-  bookstack_mariadb_password = var.bookstack_mariadb_password
-  providers = {
-    docker = docker.floyd
-  }
-}
+# module "bookstack" {
+#   source                     = "./bookstack"
+#   ips                        = var.ips
+#   bookstack_mariadb_password = var.bookstack_mariadb_password
+#   providers = {
+#     docker = docker.floyd
+#   }
+# }
 
 module "caddy" {
   source               = "./caddy"
@@ -65,10 +65,19 @@ module "firefly" {
   }
 }
 
-module "ripe-atlas" {
-  source = "./ripe-atlas"
+# module "ripe-atlas" {
+#   source = "./ripe-atlas"
+#   ips    = var.ips
+#   providers = {
+#     docker = docker.parvaaz
+#   }
+# }
+
+
+module "syncthing" {
+  source = "./syncthing"
   ips    = var.ips
   providers = {
-    docker = docker.parvaaz
+    docker = docker.floyd
   }
 }

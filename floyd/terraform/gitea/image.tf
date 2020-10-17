@@ -1,5 +1,5 @@
 data "docker_registry_image" "gitea" {
-  name = "gitea/gitea:1.12.3"
+  name = "gitea/gitea:latest"
 }
 
 resource "docker_image" "gitea" {
