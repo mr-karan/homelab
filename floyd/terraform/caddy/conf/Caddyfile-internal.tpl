@@ -1,10 +1,3 @@
-git.mrkaran.dev {
-    reverse_proxy gitea:3000
-    tls {
-	    dns cloudflare "${cloudflare_api_token}"
-    }
-}
-
 pi.mrkaran.dev {
     reverse_proxy pihole:80
     tls {

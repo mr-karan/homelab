@@ -6,24 +6,31 @@ module "hydra-infra" {
 }
 
 module "pihole" {
-  source = "./pihole"
-  ips    = var.ips
+  source                 = "./pihole"
+  ips                    = var.ips
+  caddy_network_internal = module.caddy.caddy_network_internal
   providers = {
     docker = docker.floyd
   }
 }
 
 module "unbound" {
-  source = "./unbound"
-  ips    = var.ips
+  source                 = "./unbound"
+  ips                    = var.ips
+  caddy_network_internal = module.caddy.caddy_network_internal
   providers = {
     docker = docker.floyd
   }
 }
 
 module "gitea" {
-  source = "./gitea"
-  ips    = var.ips
+  source                  = "./gitea"
+  ips                     = var.ips
+  gitea_secret_key        = var.gitea_secret_key
+  gitea_internal_token    = var.gitea_internal_token
+  gitea_lfs_jwt_secret    = var.gitea_lfs_jwt_secret
+  gitea_oauth2_jwt_secret = var.gitea_oauth2_jwt_secret
+  caddy_network_public    = module.caddy.caddy_network_public
   providers = {
     docker = docker.floyd
   }
@@ -48,8 +55,9 @@ module "caddy" {
 }
 
 module "monitoring" {
-  source = "./monitoring"
-  ips    = var.ips
+  source                 = "./monitoring"
+  ips                    = var.ips
+  caddy_network_internal = module.caddy.caddy_network_internal
   providers = {
     docker = docker.floyd
   }
@@ -60,6 +68,7 @@ module "firefly" {
   ips                       = var.ips
   firefly_postgres_password = var.firefly_postgres_password
   firefly_app_key           = var.firefly_app_key
+  caddy_network_internal    = module.caddy.caddy_network_internal
   providers = {
     docker = docker.floyd
   }
@@ -75,8 +84,9 @@ module "firefly" {
 
 
 module "syncthing" {
-  source = "./syncthing"
-  ips    = var.ips
+  source                 = "./syncthing"
+  ips                    = var.ips
+  caddy_network_internal = module.caddy.caddy_network_internal
   providers = {
     docker = docker.floyd
   }

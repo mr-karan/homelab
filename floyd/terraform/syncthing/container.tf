@@ -35,7 +35,7 @@ resource "docker_container" "syncthing" {
   }
 
   networks_advanced {
-    name = "caddy"
+    name = var.caddy_network_internal
   }
 
   env = [

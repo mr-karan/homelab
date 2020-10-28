@@ -21,7 +21,7 @@ resource "docker_container" "grafana" {
   }
 
   networks_advanced {
-    name = "caddy"
+    name = var.caddy_network_internal
   }
 
   user                  = "root"

@@ -57,7 +57,7 @@ resource "docker_container" "pihole" {
   }
 
   networks_advanced {
-    name = "caddy"
+    name = var.caddy_network_internal
   }
 
   restart               = "unless-stopped"

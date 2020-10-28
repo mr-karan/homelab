@@ -9,3 +9,4 @@ variable "firefly_postgres_password" {
 variable "firefly_app_key" {
   type = string
 }
+variable "caddy_network_internal" {}

@@ -19,7 +19,7 @@ resource "docker_container" "firefly" {
   }
 
   networks_advanced {
-    name = "caddy"
+    name = var.caddy_network_internal
   }
 
   env = [

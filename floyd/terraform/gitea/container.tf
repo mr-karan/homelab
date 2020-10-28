@@ -9,6 +9,11 @@ resource "docker_container" "gitea" {
     container_path = "/data/"
   }
 
+  upload {
+    content = data.template_file.gitea.rendered
+    file    = "/data/gitea/conf/app.ini"
+  }
+
   # https://tools.ietf.org/html/rfc5966
   # mentions to support TCP for DNS.
   ports {
@@ -31,7 +36,7 @@ resource "docker_container" "gitea" {
   }
 
   networks_advanced {
-    name = "caddy"
+    name = var.caddy_network_public
   }
 
   restart               = "unless-stopped"
