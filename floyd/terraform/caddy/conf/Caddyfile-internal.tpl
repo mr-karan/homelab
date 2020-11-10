@@ -3,6 +3,7 @@ pi.mrkaran.dev {
     tls {
 	    dns cloudflare "${cloudflare_api_token}"
     }
+    metrics /metrics
 }
 
 wiki.mrkaran.dev {
@@ -10,6 +11,7 @@ wiki.mrkaran.dev {
     tls {
 	    dns cloudflare "${cloudflare_api_token}"
     }
+    metrics /metrics
 }
 
 grafana.mrkaran.dev {
@@ -17,6 +19,7 @@ grafana.mrkaran.dev {
     tls {
 	    dns cloudflare "${cloudflare_api_token}"
     }
+    metrics /metrics
 }
 
 sync.mrkaran.dev {
@@ -24,6 +27,7 @@ sync.mrkaran.dev {
     tls {
 	    dns cloudflare "${cloudflare_api_token}"
     }
+    metrics /metrics
 }
 
 
@@ -36,4 +40,5 @@ firefly.mrkaran.dev {
         # https://docs.firefly-iii.org/installation/docker#docker-and-reverse-proxies
         X-Forwarded-Proto https
     }
+    metrics /metrics
 }

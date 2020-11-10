@@ -5,3 +5,5 @@ variable "ips" {
 variable "cloudflare_api_token" {
   type = string
 }
+
+variable "monitoring_network" {}

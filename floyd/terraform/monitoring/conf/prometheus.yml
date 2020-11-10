@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 30s
   external_labels:
     hydra_component: "floyd"
 
@@ -9,12 +9,10 @@ scrape_configs:
       - targets: ["localhost:9090"]
 
   - job_name: "node"
-    scrape_interval: 5s
     static_configs:
       - targets: ["nodeexporter:9100"]
 
   - job_name: "cadvisor"
-    scrape_interval: 5s
     static_configs:
       - targets: ["cadvisor:8080"]
 
@@ -22,3 +20,13 @@ scrape_configs:
     scrape_interval: 60s
     static_configs:
       - targets: ["100.94.241.54:9283"] # RPi telegraf Agent
+
+  - job_name: caddy-public
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['caddy_public:2019']
+
+  - job_name: caddy-internal
+    scrape_interval: 60s
+    static_configs:
+      - targets: ['caddy_internal:2019']

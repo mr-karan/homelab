@@ -31,6 +31,10 @@ resource "docker_container" "caddy_public" {
     name = docker_network.caddy_public.name
   }
 
+  networks_advanced {
+    name = var.monitoring_network
+  }
+
   restart               = "unless-stopped"
   destroy_grace_seconds = 30
   must_run              = true
@@ -68,6 +72,10 @@ resource "docker_container" "caddy_internal" {
   networks_advanced {
     name = docker_network.caddy_internal.name
   }
+
+  # networks_advanced {
+  #   name = var.monitoring_network
+  # }
 
   restart               = "unless-stopped"
   destroy_grace_seconds = 30
