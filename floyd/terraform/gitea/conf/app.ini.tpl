@@ -18,7 +18,7 @@ TEMP_PATH = /data/gitea/uploads
 [server]
 APP_DATA_PATH    = /data/gitea
 DOMAIN           = git.mrkaran.dev
-SSH_DOMAIN       = git.mrkaran.dev
+SSH_DOMAIN       = koadings.mrkaran.dev
 HTTP_PORT        = 3000
 ROOT_URL         = https://git.mrkaran.dev/
 DISABLE_SSH      = false

@@ -14,16 +14,7 @@ resource "docker_container" "gitea" {
     file    = "/data/gitea/conf/app.ini"
   }
 
-  # https://tools.ietf.org/html/rfc5966
-  # mentions to support TCP for DNS.
-  ports {
-    internal = 3000
-    external = 4000
-    ip       = var.ips["tailscale_floyd"]
-    protocol = "tcp"
-  }
-
-  # DNS on UDP
+  # SSH port on host exposed to Tailscale IP
   ports {
     internal = 22
     external = 4222
