@@ -5,7 +5,7 @@ resource "docker_container" "shynet" {
   image = docker_image.shynet.latest
 
   volumes {
-    host_path      = "/data/shynet"
+    host_path      = "/data/shynet/config"
     container_path = "/config"
   }
 
