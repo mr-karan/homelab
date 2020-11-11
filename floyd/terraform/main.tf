@@ -49,7 +49,7 @@ module "bookstack" {
 module "caddy" {
   source               = "./caddy"
   ips                  = var.ips
-  cloudflare_api_token = var.cloudflare_api_token
+  cloudflare_api_token = var.cloudflare_caddy_api_token
   monitoring_network   = module.monitoring.monitoring_network
   providers = {
     docker = docker.floyd
@@ -86,6 +86,15 @@ module "syncthing" {
     docker = docker.floyd
   }
 }
+
+module "cloudflare" {
+  source = "./cloudflare"
+  ips    = var.ips
+  providers = {
+    cloudflare = cloudflare
+  }
+}
+
 
 ### UNUSED SERVICES ###
 ###      GOODBYE    ###

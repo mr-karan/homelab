@@ -16,9 +16,9 @@ variable "bookstack_mariadb_password" {
   description = "Password for Bookstack MariaDB server"
 }
 
-variable "cloudflare_api_token" {
+variable "cloudflare_caddy_api_token" {
   type        = string
-  description = "API key to edit DNS zones in Cloudflare"
+  description = "API key to edit DNS zones in Cloudflare used by Caddy"
 }
 
 variable "firefly_postgres_password" {

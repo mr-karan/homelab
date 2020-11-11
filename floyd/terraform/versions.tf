@@ -6,6 +6,9 @@ terraform {
     docker = {
       source = "terraform-providers/docker"
     }
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+    }
   }
   required_version = ">= 0.13"
 }
