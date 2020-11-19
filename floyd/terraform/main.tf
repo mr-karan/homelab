@@ -65,8 +65,6 @@ module "monitoring" {
   }
 }
 
-
-
 module "shynet" {
   source                     = "./shynet"
   ips                        = var.ips
@@ -77,6 +75,18 @@ module "shynet" {
     docker = docker.floyd
   }
 }
+
+module "planka" {
+  source                     = "./planka"
+  ips                        = var.ips
+  planka_postgresql_password = var.planka_postgresql_password
+  planka_secret_key          = var.planka_secret_key
+  caddy_network_internal     = module.caddy.caddy_network_internal
+  providers = {
+    docker = docker.floyd
+  }
+}
+
 
 module "syncthing" {
   source                 = "./syncthing"

@@ -6,7 +6,7 @@ resource "docker_container" "shynet_db" {
 
   volumes {
     host_path      = "/data/shynet/db"
-    container_path = "/var/lib/postgres"
+    container_path = "/var/lib/postgresql/data"
   }
 
   env = [

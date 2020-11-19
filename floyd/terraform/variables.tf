@@ -60,3 +60,13 @@ variable "shynet_django_secret_key" {
   type        = string
   description = "Django secret key generated for Shynet"
 }
+
+variable "planka_postgresql_password" {
+  type        = string
+  description = "Password for planka PostgreSQL server"
+}
+
+variable "planka_secret_key" {
+  type        = string
+  description = " secret key generated for planka"
+}

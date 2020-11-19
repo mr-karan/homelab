@@ -6,7 +6,7 @@ resource "docker_container" "firefly_db" {
 
   volumes {
     host_path      = "/data/firefly/db"
-    container_path = "/var/lib/postgres"
+    container_path = "/var/lib/postgresql/data"
   }
 
   env = [

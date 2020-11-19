@@ -125,3 +125,15 @@ resource "cloudflare_record" "wiki" {
   value = var.ips["tailscale_floyd"]
 
 }
+
+resource "cloudflare_record" "planka" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "planka"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
+  value = var.ips["tailscale_floyd"]
+
+}
