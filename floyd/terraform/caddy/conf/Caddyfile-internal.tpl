@@ -30,8 +30,8 @@ sync.mrkaran.dev {
     metrics /metrics
 }
 
-planka.mrkaran.dev {
-    reverse_proxy planka:1337
+nextcloud.mrkaran.dev {
+    reverse_proxy nextcloud:80
     tls {
 	    dns cloudflare "${cloudflare_api_token}"
     }

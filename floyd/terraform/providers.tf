@@ -15,7 +15,6 @@ provider "digitalocean" {
 
 # Configure the Cloudflare provider.
 provider "cloudflare" {
-  version = "~> 2.0"
   # You need to set this in your .bashrc
   # export CLOUDFLARE_API_TOKEN="Your API TOKEN"
 }

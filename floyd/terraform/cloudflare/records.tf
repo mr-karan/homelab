@@ -126,10 +126,10 @@ resource "cloudflare_record" "wiki" {
 
 }
 
-resource "cloudflare_record" "planka" {
+resource "cloudflare_record" "nextcloud" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
-  name    = "planka"
+  name    = "nextcloud"
   type    = "A"
   ttl     = "1"
   proxied = "false"

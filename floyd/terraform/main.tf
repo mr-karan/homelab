@@ -76,18 +76,6 @@ module "shynet" {
   }
 }
 
-module "planka" {
-  source                     = "./planka"
-  ips                        = var.ips
-  planka_postgresql_password = var.planka_postgresql_password
-  planka_secret_key          = var.planka_secret_key
-  caddy_network_internal     = module.caddy.caddy_network_internal
-  providers = {
-    docker = docker.floyd
-  }
-}
-
-
 module "syncthing" {
   source                 = "./syncthing"
   ips                    = var.ips
@@ -104,26 +92,3 @@ module "cloudflare" {
     cloudflare = cloudflare
   }
 }
-
-
-### UNUSED SERVICES ###
-###      GOODBYE    ###
-
-# module "ripe-atlas" {
-#   source = "./ripe-atlas"
-#   ips    = var.ips
-#   providers = {
-#     docker = docker.parvaaz
-#   }
-# }
-
-# module "firefly" {
-#   source                    = "./firefly"
-#   ips                       = var.ips
-#   firefly_postgres_password = var.firefly_postgres_password
-#   firefly_app_key           = var.firefly_app_key
-#   caddy_network_internal    = module.caddy.caddy_network_internal
-#   providers = {
-#     docker = docker.floyd
-#   }
-# }
