@@ -92,3 +92,14 @@ module "cloudflare" {
     cloudflare = cloudflare
   }
 }
+
+module "firefly" {
+  source                    = "./firefly"
+  ips                       = var.ips
+  firefly_postgres_password = var.firefly_postgres_password
+  firefly_app_key           = var.firefly_app_key
+  caddy_network_internal    = module.caddy.caddy_network_internal
+  providers = {
+    docker = docker.floyd
+  }
+}
