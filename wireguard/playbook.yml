@@ -1,3 +1,0 @@
-- hosts: vpn
-  roles:
-    - wireguard

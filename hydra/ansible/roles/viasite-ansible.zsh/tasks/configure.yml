@@ -1,0 +1,75 @@
+---
+
+- name: Check zsh version
+  shell: "set -o pipefail; zsh --version | cut -d ' ' -f2"
+  args:
+    executable: /bin/bash
+  register: zsh_register_version
+  check_mode: no
+  changed_when: false
+  tags: configure
+
+- name: Set zsh_version variable
+  set_fact:
+    zsh_version: "{{ zsh_register_version.stdout }}"
+
+- name: Merge bundles lists
+  set_fact:
+    zsh_antigen_bundles: "{{ zsh_antigen_bundles }} + {{ zsh_antigen_bundles_extras }}"
+
+- name: Disable autoupdate if zsh_shared install
+  set_fact:
+    zsh_update_interval: 0
+  when: zsh_shared
+
+- name: Check commands exists
+  shell: "command -v {{ item.command }} || which {{ item.command }}"
+  with_items: "{{ zsh_antigen_bundles }}"
+  failed_when: false
+  changed_when: false
+  check_mode: no
+  when: item.command is defined
+  register: zsh_register_commands_exists
+
+- name: Merge hotkeys lists
+  set_fact:
+    zsh_hotkeys: "{{ zsh_hotkeys }} + {{ zsh_hotkeys_extras }}"
+
+- name: Check antigen version
+  shell: |
+    set -o pipefail
+    cat "{{ zsh_antigen_path }}/antigen/VERSION" | tr -d 'v'
+  args:
+    executable: /bin/bash
+  register: zsh_register_antigen_version
+  changed_when: false
+  failed_when: false
+  check_mode: no
+  tags: configure
+
+- name: Set zsh_antigen_installed_version variable
+  set_fact:
+    zsh_antigen_installed_version: "{{ zsh_register_antigen_version.stdout }}"
+
+- name: Write .zshrc config
+  template:
+    src: zshrc.j2
+    dest: "{{ zsh_config }}"
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+    backup: yes
+
+- name: Set zsh as default shell
+  user:
+    name: "{{ zsh_user }}"
+    shell: /bin/zsh
+  become: true
+  when: not zsh_shared and zsh_change_user_shell
+
+- name: Add skip_global_compinit for disable early compinit call in Ubuntu
+  lineinfile:
+    regexp: "skip_global_compinit=1"
+    line: "skip_global_compinit=1"
+    dest: /etc/zsh/zshenv
+    state: present
+  when: ansible_distribution == 'Ubuntu'

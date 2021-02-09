@@ -1,9 +1,0 @@
-namespace: unbound
-resources:
-  - namespace.yml
-  - unbound/unbound-deployment.yml
-  - unbound/unbound-service.yml
-  - unbound/unbound-nodeport-service.yml
-patchesStrategicMerge:
-  - patches/nodeport-hardcode.yml
-  - patches/nodeselector.yml

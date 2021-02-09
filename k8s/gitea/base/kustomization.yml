@@ -1,7 +1,0 @@
-namespace: gitea
-resources:
-  - namespace.yml
-  - gitea/gitea-deployment.yml
-  - gitea/gitea-nodeport-service.yml
-patchesStrategicMerge:
-  - patches/add-config-volume.yml
