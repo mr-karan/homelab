@@ -26,7 +26,7 @@ job "caddy" {
     restart {
       attempts = 2
       interval = "2m"
-      delay    = "15s"
+      delay    = "30s"
       mode     = "fail"
     }
     task "app" {
@@ -37,7 +37,7 @@ job "caddy" {
           {
             type   = "bind"
             source = "configs"
-            target = "/etc/caddy"
+            target = "/etc/caddy" # Bind mount the template from `NOMAD_TASK_DIR`.
           }
         ]
         ports = ["http", "https"]
@@ -47,12 +47,12 @@ job "caddy" {
         memory = 100
       }
       artifact {
-        source      = "https://"
-        destination = "configs/"
+        source      = "https://raw.githubusercontent.com/mr-karan/hydra/nomad/hydra/nomad/caddy/Caddyfile.tpl"
+        destination = "configs" # Save to a local path inside `NOMAD_TASK_DIR`.
       }
       template {
-        source        = "/home/karan/jobs/caddy/Caddyfile.tpl"
-        destination   = "configs/Caddyfile"
+        source        = "configs/Caddyfile.tpl" # Downloaded from Artifact.
+        destination   = "configs/Caddyfile"     # Rendered template.
         change_mode   = "signal"
         change_signal = "SIGINT"
       }
