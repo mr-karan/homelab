@@ -1,9 +1,8 @@
 locals {
   # Map of IPs of all the nodes.
   ips = {
-    floyd_floating   = module.servers.floating_floyd
-    gilmour_floating = module.servers.floating_gilmour
-    floyd_tailscale  = "100.119.138.27"
+    floyd_floating  = module.servers.floating_floyd
+    floyd_tailscale = "100.119.138.27"
   }
 }
 

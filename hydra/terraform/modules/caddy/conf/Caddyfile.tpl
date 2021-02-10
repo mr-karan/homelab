@@ -11,3 +11,12 @@ consul.mrkaran.dev {
 	    dns cloudflare "${cloudflare_api_token}"
     }
 }
+
+pihole.mrkaran.dev {
+    {{ range service "pihole-admin" }}
+    reverse_proxy {{ .Address }}:{{ .Port }}
+    {{ end }}
+    tls {
+	    dns cloudflare "${cloudflare_api_token}"
+    }
+}

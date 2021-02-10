@@ -5,12 +5,14 @@ job "caddy" {
     count = 1
     network {
       port "http" {
-        static = 80
-        to     = 80
+        static       = 80
+        to           = 80
+        host_network = "tailscale"
       }
       port "https" {
-        static = 443
-        to     = 443
+        static       = 443
+        to           = 443
+        host_network = "tailscale"
       }
     }
     service {
@@ -53,12 +55,12 @@ job "caddy" {
         memory = 100
       }
       template {
-        data          = <<EOF
+        data        = <<EOF
 ${caddyfile}
 EOF
-        destination   = "configs/Caddyfile" # Rendered template.
-        change_mode   = "signal"
-        change_signal = "SIGINT"
+        destination = "configs/Caddyfile" # Rendered template.
+        # Caddy doesn't support reload via signals as of 
+        change_mode = "restart"
       }
     }
   }

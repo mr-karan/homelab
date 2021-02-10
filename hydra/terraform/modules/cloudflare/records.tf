@@ -10,18 +10,6 @@ resource "cloudflare_record" "floyd" {
 
 }
 
-resource "cloudflare_record" "gilmour" {
-  zone_id = cloudflare_zone.mrkaran_dev.id
-
-  name    = "gilmour"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-
-  value = var.ips["gilmour_floating"]
-
-}
-
 resource "cloudflare_record" "nomad" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
@@ -55,5 +43,17 @@ resource "cloudflare_record" "website" {
   proxied = "false"
 
   value = "mrkaran.netlify.app"
+
+}
+
+resource "cloudflare_record" "pihole" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "pihole"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
+  value = var.ips["floyd_tailscale"]
 
 }

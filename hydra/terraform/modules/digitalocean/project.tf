@@ -4,9 +4,7 @@ resource "digitalocean_project" "hydra" {
   description = "Self hosted Nomad cluster to deploy personal workloads"
   purpose     = "Web Application"
   environment = "Production"
-  # Tag the droplet IDs and Floating IPs of `floyd` and `gilmour`.
-  resources = [digitalocean_droplet.floyd.urn,
-    digitalocean_floating_ip.floyd.urn,
-    digitalocean_droplet.gilmour.urn,
-  digitalocean_floating_ip.gilmour.urn]
+  # Tag the droplet IDs and Floating IPs.
+  resources = [digitalocean_droplet.floyd.urn, digitalocean_floating_ip.floyd.urn]
 }
+

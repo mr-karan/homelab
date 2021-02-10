@@ -20,3 +20,10 @@ module "caddy" {
     nomad = nomad
   }
 }
+
+module "pihole" {
+  source = "./modules/pihole"
+  providers = {
+    nomad = nomad
+  }
+}
