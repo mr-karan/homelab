@@ -151,3 +151,19 @@ Visit http://100.119.138.27:8500/ui/ to access Consul UI.
 ```
 rsync -avz --progress ./*.nomad floyd:/home/karan/jobs
 ```
+## Vault
+
+Currently using `TF_VARS` to load env variables from the host and run `tf apply`. Terraform then templates out the Nomad `jobspec` and submits the job to the server. This is okay in this context because:
+
+- Nomad API server is listening only to Tailscale IP. Which means only trusted, authenticated agents have access to the API. This is very important because Nomad shows the plain text version of the `jobspec` in UI and CLI. So all the secret keys can be exposed if a malicious actor has access to the API server (even if read only).
+ 
+- The env keys are mostly just one time API tokens or DB Passwords. They don't need to be "watched" and reloaded often, running an entire Vault server just for passing these keys seems a bit _extra complexity_.
+
+**However**, to just _experiment_ with things and make the setup a bit more secure, we can consider running a single node Vault server:
+
+- [ ] Setup Vault to store secrets
+  - [ ] Vault init/unseal steps.
+  - [ ] Add Policies and Role in Vault for a namespace
+  - [ ] Configure Nomad to use Vault
+  - [ ] Add an API token in Vault
+  - [ ] Pass CF token to Caddyfile and retrieve from Vault with Consul Template

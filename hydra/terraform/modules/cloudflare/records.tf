@@ -22,6 +22,30 @@ resource "cloudflare_record" "gilmour" {
 
 }
 
+resource "cloudflare_record" "nomad" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "nomad"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
+  value = var.ips["floyd_tailscale"]
+
+}
+
+resource "cloudflare_record" "consul" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "consul"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
+  value = var.ips["floyd_tailscale"]
+
+}
+
 resource "cloudflare_record" "website" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 

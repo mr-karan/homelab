@@ -1,3 +1,3 @@
 variable "ips" {
-  type = map
+  type = map(any)
 }

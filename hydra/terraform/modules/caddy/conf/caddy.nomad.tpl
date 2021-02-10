@@ -33,26 +33,30 @@ job "caddy" {
       driver = "docker"
       config {
         image = "mrkaran/caddy:latest"
-        mounts = [
-          {
-            type   = "bind"
-            source = "configs"
-            target = "/etc/caddy" # Bind mount the template from `NOMAD_TASK_DIR`.
-          }
-        ]
+        # Bind the config file to container.
+        mount {
+          type   = "bind"
+          source = "configs"
+          target = "/etc/caddy" # Bind mount the template from `NOMAD_TASK_DIR`.
+        }
+        # Bind the data directory to preserve certs.
+        mount {
+          type     = "bind"
+          target   = "/data"
+          source   = "/data/caddy"
+          readonly = false
+        }
         ports = ["http", "https"]
       }
       resources {
         cpu    = 100
         memory = 100
       }
-      artifact {
-        source      = "https://raw.githubusercontent.com/mr-karan/hydra/nomad/hydra/nomad/caddy/Caddyfile.tpl"
-        destination = "configs" # Save to a local path inside `NOMAD_TASK_DIR`.
-      }
       template {
-        source        = "configs/Caddyfile.tpl" # Downloaded from Artifact.
-        destination   = "configs/Caddyfile"     # Rendered template.
+        data          = <<EOF
+${caddyfile}
+EOF
+        destination   = "configs/Caddyfile" # Rendered template.
         change_mode   = "signal"
         change_signal = "SIGINT"
       }

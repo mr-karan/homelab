@@ -5,8 +5,8 @@ resource "digitalocean_project" "hydra" {
   purpose     = "Web Application"
   environment = "Production"
   # Tag the droplet IDs and Floating IPs of `floyd` and `gilmour`.
-  resources   = [digitalocean_droplet.floyd.urn,
-                 digitalocean_floating_ip.floyd.urn,
-                 digitalocean_droplet.gilmour.urn,
-                 digitalocean_floating_ip.gilmour.urn]
+  resources = [digitalocean_droplet.floyd.urn,
+    digitalocean_floating_ip.floyd.urn,
+    digitalocean_droplet.gilmour.urn,
+  digitalocean_floating_ip.gilmour.urn]
 }
