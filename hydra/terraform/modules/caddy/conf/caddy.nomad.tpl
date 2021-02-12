@@ -4,26 +4,26 @@ job "caddy" {
   group "proxy" {
     count = 1
     network {
-      port "http" {
+      port "http-internal" {
         static       = 80
         to           = 80
         host_network = "tailscale"
       }
-      port "https" {
+      port "https-internal" {
         static       = 443
         to           = 443
         host_network = "tailscale"
       }
-    }
-    service {
-      name = "caddy-http"
-      tags = ["caddy", "http"]
-      port = "http"
-    }
-    service {
-      name = "caddy-https"
-      tags = ["caddy", "https"]
-      port = "https"
+      port "https-public" {
+        static = 80
+        to     = 80
+        # host_network = "public"
+      }
+      port "http-public" {
+        static = 443
+        to     = 443
+        # host_network = "public"
+      }
     }
     restart {
       attempts = 2
@@ -31,7 +31,7 @@ job "caddy" {
       delay    = "30s"
       mode     = "fail"
     }
-    task "app" {
+    task "internal" {
       driver = "docker"
       config {
         image = "mrkaran/caddy:latest"
@@ -48,7 +48,7 @@ job "caddy" {
           source   = "/data/caddy"
           readonly = false
         }
-        ports = ["http", "https"]
+        ports = ["http-internal", "https-internal"]
       }
       resources {
         cpu    = 100
@@ -56,7 +56,39 @@ job "caddy" {
       }
       template {
         data        = <<EOF
-${caddyfile}
+${caddyfile_internal}
+EOF
+        destination = "configs/Caddyfile" # Rendered template.
+        # Caddy doesn't support reload via signals as of 
+        change_mode = "restart"
+      }
+    }
+    task "public" {
+      driver = "docker"
+      config {
+        image = "mrkaran/caddy:latest"
+        # Bind the config file to container.
+        mount {
+          type   = "bind"
+          source = "configs"
+          target = "/etc/caddy" # Bind mount the template from `NOMAD_TASK_DIR`.
+        }
+        # Bind the data directory to preserve certs.
+        mount {
+          type     = "bind"
+          target   = "/data"
+          source   = "/data/caddy"
+          readonly = false
+        }
+        ports = ["http-public", "https-public"]
+      }
+      resources {
+        cpu    = 100
+        memory = 100
+      }
+      template {
+        data        = <<EOF
+${caddyfile_public}
 EOF
         destination = "configs/Caddyfile" # Rendered template.
         # Caddy doesn't support reload via signals as of 

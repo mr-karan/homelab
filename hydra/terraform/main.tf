@@ -27,3 +27,13 @@ module "pihole" {
     nomad = nomad
   }
 }
+
+
+module "shynet" {
+  source                     = "./modules/shynet"
+  shynet_postgresql_password = var.shynet_postgresql_password
+  shynet_django_secret_key   = var.shynet_django_secret_key
+  providers = {
+    nomad = nomad
+  }
+}

@@ -57,3 +57,15 @@ resource "cloudflare_record" "pihole" {
   value = var.ips["floyd_tailscale"]
 
 }
+
+resource "cloudflare_record" "shynet" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "shynet"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  # TODO: shift to floating IP
+  value = "68.183.87.4"
+
+}

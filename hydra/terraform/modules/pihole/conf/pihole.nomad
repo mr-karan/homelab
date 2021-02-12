@@ -21,7 +21,7 @@ job "pihole" {
     service {
       name = "pihole-admin"
       tags = ["pihole", "admin"]
-      port = "http" # Terminate SSL at Caddy.
+      port = "http"
     }
     restart {
       attempts = 2
