@@ -69,3 +69,15 @@ resource "cloudflare_record" "shynet" {
   value = "68.183.87.4"
 
 }
+
+resource "cloudflare_record" "nextcloud" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "nextcloud"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+  # TODO: shift to floating IP
+  value = "68.183.87.4"
+
+}

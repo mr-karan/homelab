@@ -20,3 +20,8 @@ variable "shynet_django_secret_key" {
   type        = string
   description = "Django secret key generated for Shynet"
 }
+
+variable "nextcloud_postgresql_password" {
+  type        = string
+  description = "Password for nextcloud PostgreSQL server"
+}

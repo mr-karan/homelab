@@ -28,7 +28,6 @@ module "pihole" {
   }
 }
 
-
 module "shynet" {
   source                     = "./modules/shynet"
   shynet_postgresql_password = var.shynet_postgresql_password
