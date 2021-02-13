@@ -11,5 +11,4 @@
 
 ## Hands on by deploying more workloads
 
-- [ ] Deploy `shynet.mrkaran.dev`
-- [ ] Deploy `grafana.mrkaran.dev`
+- [x] Deploy `shynet.mrkaran.dev`
