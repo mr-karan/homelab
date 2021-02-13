@@ -47,3 +47,19 @@ variable "gitea_oauth2_jwt_secret" {
   description = "OAuth2 authentication secret for access and refresh tokens"
 
 }
+
+variable "restic_b2_account_id" {
+  type = string
+}
+
+variable "restic_b2_account_key" {
+  type = string
+}
+
+variable "restic_repository" {
+  type = string
+}
+
+variable "restic_password" {
+  type = string
+}
