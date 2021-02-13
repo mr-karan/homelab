@@ -19,17 +19,16 @@ job "restic" {
     }
 
     task "backup" {
-      driver = "exec"
-      user   = "karan"
+      driver = "raw_exec"
 
       config {
-        # Since `/data` is owned by `root`, restic needs to be spawned as `root`.
-        command = "sudo"
-        args    = ["local/restic_backup.sh"]
+        # Since `/data` is owned by `root`, restic needs to be spawned as `root`. 
 
-        // command = "sleep"
+        # `raw_exec` spawns the process with which `nomad` client is running (`root` i.e.).
+        // command   = "$${NOMAD_TASK_DIR}/restic_backup.sh"
+        command = "sleep"
 
-        // args = ["infinity"]
+        args = ["infinity"]
       }
 
       env {
@@ -47,10 +46,13 @@ set -Eeuo pipefail
 
 export B2_ACCOUNT_ID="${restic_b2_account_id}"
 export B2_ACCOUNT_KEY="${restic_b2_account_key}"
-export RESTIC_PASSWORD="${restic_repository}"
-export RESTIC_REPOSITORY="${restic_password}"
+export RESTIC_REPOSITORY="${restic_repository}"
+export RESTIC_PASSWORD="${restic_password}"
+export HOME="/home/karan"
 
 echo "`date`: Starting backup! $RESTIC_REPOSITORY"
+
+restic unlock
 
 restic backup --verbose --one-file-system --tag nomad /data
 
@@ -70,7 +72,7 @@ EOF
 
       resources {
         cpu    = 200
-        memory = 50
+        memory = 300
       }
     }
   }
