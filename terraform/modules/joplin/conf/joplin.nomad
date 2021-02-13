@@ -1,4 +1,4 @@
-job "shynet" {
+job "joplin" {
   datacenters = ["hydra"]
   type        = "service"
 
@@ -7,7 +7,8 @@ job "shynet" {
 
     network {
       port "http" {
-        to = 8080
+        to           = 22300
+        host_network = "tailscale"
       }
 
       port "db" {
@@ -27,46 +28,30 @@ job "shynet" {
       driver = "docker"
 
       service {
-        name = "shynet-web"
-        tags = ["shynet", "web"]
+        name = "joplin-web"
+        tags = ["joplin", "web"]
         port = "http"
       }
 
       config {
-        image = "milesmcc/shynet:0.7.3"
-
-        # Bind the data directory to preserve config.
-        mount {
-          type     = "bind"
-          target   = "/config"
-          source   = "/data/shynet/app/"
-          readonly = false
-        }
-
+        image = "joplin/server:latest"
         ports = ["http"]
       }
 
       env {
-        DB_NAME                  = "shynet"
-        DB_PORT                  = 5432
-        DB_USER                  = "shynet"
-        DB_PASSWORD              = "${shynet_postgresql_password}"
-        DJANGO_SECRET_KEY        = "${shynet_django_secret_key}"
-        TIME_ZONE                = "Asia/Kolkata"
-        ACCOUNT_SIGNUPS_ENABLED  = "False"
-        SCRIPT_USE_HTTPS         = "True"
-        SHOW_SHYNET_VERSION      = "True"
-        PERFORM_CHECKS_AND_SETUP = "True"
-        PORT                     = 8080
-        ONLY_SUPERUSERS_CREATE   = "True"
+        APP_BASE_URL      = "https://joplin.mrkaran.dev"
+        DB_CLIENT         = "pg"
+        POSTGRES_DATABASE = "joplin"
+        POSTGRES_USER     = "joplin"
+        POSTGRES_PASSWORD = "${joplin_postgresql_password}"
       }
 
       template {
         data = <<EOH
-      {{- with service "shynet-db" }}
+      {{- with service "joplin-db" }}
       {{- with index . 0 }}
-      DB_HOST="{{.Address}}"
-      DB_PORT="{{.Port}}"
+      POSTGRES_HOST="{{.Address}}"
+      POSTGRES_PORT="{{.Port}}"
       {{- end }}
       {{ end }}
       EOH
@@ -86,8 +71,8 @@ job "shynet" {
       driver = "docker"
 
       service {
-        name = "shynet-db"
-        tags = ["shynet", "db"]
+        name = "joplin-db"
+        tags = ["joplin", "db"]
         port = "db"
       }
 
@@ -98,7 +83,7 @@ job "shynet" {
         mount {
           type     = "bind"
           target   = "/var/lib/postgresql/data"
-          source   = "/data/shynet/db/"
+          source   = "/data/joplin/db/"
           readonly = false
         }
 
@@ -106,9 +91,9 @@ job "shynet" {
       }
 
       env {
-        POSTGRES_DB       = "shynet"
-        POSTGRES_USER     = "shynet"
-        POSTGRES_PASSWORD = "${shynet_postgresql_password}"
+        POSTGRES_DB       = "joplin"
+        POSTGRES_USER     = "joplin"
+        POSTGRES_PASSWORD = "${joplin_postgresql_password}"
       }
 
       # resources {

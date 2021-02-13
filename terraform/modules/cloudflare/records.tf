@@ -70,14 +70,13 @@ resource "cloudflare_record" "shynet" {
 
 }
 
-resource "cloudflare_record" "nextcloud" {
+resource "cloudflare_record" "joplin" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
-  name    = "nextcloud"
+  name    = "joplin"
   type    = "A"
   ttl     = "1"
-  proxied = "true"
-  # TODO: shift to floating IP
-  value = "68.183.87.4"
+  proxied = "false"
+  value = var.ips["floyd_tailscale"]
 
 }

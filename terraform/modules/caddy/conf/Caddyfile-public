@@ -7,11 +7,3 @@ shynet.mrkaran.dev {
     }
 }
 
-nextcloud.mrkaran.dev {
-    {{ range service "nextcloud-web" }}
-    reverse_proxy {{ .Address }}:{{ .Port }}
-    {{ end }}
-    tls {
-	    dns cloudflare "${cloudflare_api_token}"
-    }
-}

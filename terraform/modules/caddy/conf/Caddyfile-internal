@@ -20,3 +20,12 @@ pihole.mrkaran.dev {
 	    dns cloudflare "${cloudflare_api_token}"
     }
 }
+
+joplin.mrkaran.dev {
+    {{ range service "joplin-web" }}
+    reverse_proxy {{ .Address }}:{{ .Port }}
+    {{ end }}
+    tls {
+	    dns cloudflare "${cloudflare_api_token}"
+    }
+}

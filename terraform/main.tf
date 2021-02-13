@@ -36,3 +36,11 @@ module "shynet" {
     nomad = nomad
   }
 }
+
+module "joplin" {
+  source                     = "./modules/joplin"
+  joplin_postgresql_password = var.joplin_postgresql_password
+  providers = {
+    nomad = nomad
+  }
+}
