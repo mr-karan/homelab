@@ -25,10 +25,7 @@ job "restic" {
         # Since `/data` is owned by `root`, restic needs to be spawned as `root`. 
 
         # `raw_exec` spawns the process with which `nomad` client is running (`root` i.e.).
-        // command   = "$${NOMAD_TASK_DIR}/restic_backup.sh"
-        command = "sleep"
-
-        args = ["infinity"]
+        command = "$${NOMAD_TASK_DIR}/restic_backup.sh"
       }
 
       env {
