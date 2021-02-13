@@ -1,5 +1,7 @@
 # Nomad Cluster Setup
 
+P
+
 # Setup Tailscale
 
 Tailscale acts as a mesh layer between the server and worker nodes. Since the user's laptop/mobile also has a Tailscale agent running it makes it easy to deploy and browse Nomad/Consul Admin UIs as well.

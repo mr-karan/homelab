@@ -66,7 +66,7 @@ resource "cloudflare_record" "shynet" {
   ttl     = "1"
   proxied = "true"
   # TODO: shift to floating IP
-  value = "68.183.87.4"
+  value = var.ips["floyd_public"]
 
 }
 
@@ -77,6 +77,30 @@ resource "cloudflare_record" "joplin" {
   type    = "A"
   ttl     = "1"
   proxied = "false"
+  value   = var.ips["floyd_tailscale"]
+
+}
+
+resource "cloudflare_record" "koadings" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "koadings"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
   value = var.ips["floyd_tailscale"]
+
+}
+
+resource "cloudflare_record" "git" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "git"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+
+  value = var.ips["floyd_public"]
 
 }
