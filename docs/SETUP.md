@@ -1,8 +1,13 @@
 # Nomad Cluster Setup
 
-P
+## Prerequisite
 
-# Setup Tailscale
+Before continuing with the setup for Nomad and Consul:
+
+- Provision DO infra with Terraform.
+- Run Ansible Playbook to boostrap the node.
+
+### Setup Tailscale
 
 Tailscale acts as a mesh layer between the server and worker nodes. Since the user's laptop/mobile also has a Tailscale agent running it makes it easy to deploy and browse Nomad/Consul Admin UIs as well.
 
@@ -10,7 +15,7 @@ Tailscale acts as a mesh layer between the server and worker nodes. Since the us
 sudo tailscale up
 ```
 
-# Install Nomad
+## Install Nomad
 
 Follow the instructions from the [docs](https://www.nomadproject.io/docs/install).
 
@@ -23,11 +28,11 @@ complete -C /usr/local/bin/nomad nomad
 sudo mkdir --parents /opt/nomad
 ```
 
-## Setup Nomad
+### Setup Nomad
 
 Follow the instructions from the [docs](https://learn.hashicorp.com/tutorials/nomad/production-deployment-guide-vm-with-consul).
 
-### Systemd unit
+#### Systemd unit
 
 ```
 # /etc/systemd/system/nomad.service
@@ -54,7 +59,7 @@ TasksMax=infinity
 WantedBy=multi-user.target
 ```
 
-### Configurations
+#### Configurations
 
 All the config files are stored in `/etc/nomad.d`. 
 
@@ -70,6 +75,14 @@ server {
 
 client {
   enabled       = true
+  options = {
+    "docker.volumes.enabled" = true,
+    "driver.raw_exec.enable" = "1"
+  }
+  host_network "tailscale" {
+    cidr = "100.119.138.27/32"
+    reserved_ports = "22"
+  }
 }
 
 consul {
@@ -79,7 +92,7 @@ consul {
 
 ### Verification
 
-Since we changed the `bind_addr` from `0.0.0.0` to Tailscale IP we need to 
+Since we changed the `bind_addr` from `0.0.0.0`(default) to Tailscale IP we need to 
 configure `NOMAD_ADDRESS` env variable for CLI to configure the remote endpoint:
 
 [Docs](https://www.nomadproject.io/docs/commands#remote-usage)
@@ -96,21 +109,7 @@ Name          Address    Port  Status  Leader  Protocol  Build  Datacenter  Regi
 floyd.global  10.47.0.6  4648  alive   true    2         1.0.3  hydra       global
 ```
 
-### Default Ports
-
-```
-ports {
-  http = 4646
-  rpc  = 4647
-  serf = 4648
-}
-```
-
-### Accessing UI
-
-Visit http://100.119.138.27:4646/ui/ to access Nomad UI.
-
-# Install Consul
+## Install Consul
 
 ```sh
 sudo apt-get update && sudo apt-get install consul
@@ -142,18 +141,14 @@ bootstrap_expect = 1
 client_addr = "100.119.138.27"
 bind_addr = "127.0.0.1"
 ui = true
+connect {
+  enabled = true
+}
 ```
 
-### Accessing UI
-
-Visit http://100.119.138.27:8500/ui/ to access Consul UI.
-
-## Running a Job
-
-```
-rsync -avz --progress ./*.nomad floyd:/home/karan/jobs
-```
 ## Vault
+
+**WIP**
 
 Currently using `TF_VARS` to load env variables from the host and run `tf apply`. Terraform then templates out the Nomad `jobspec` and submits the job to the server. This is okay in this context because:
 
