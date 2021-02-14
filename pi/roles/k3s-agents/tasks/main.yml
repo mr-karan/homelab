@@ -1,5 +1,0 @@
----
-
-- import_tasks: agent.yml
-  tags:
-    - agent

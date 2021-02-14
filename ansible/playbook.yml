@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  roles:
+    - role: bootstrap-node
+      tags:
+        - bootstrap
+
+    - role: setup-docker
+      become: true
+      tags:
+        - docker
+    
+    - role: setup-tailscale
+      become: yes
+      tags:
+        - tailscale
+
+    - role: viasite-ansible.zsh
+      become: yes
+      tags:
+        - zsh

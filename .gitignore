@@ -11,3 +11,4 @@ inventory
 *.env
 AdGuardHome.yaml
 .ci-vault-pass
+consul-keys.txt

@@ -1,9 +1,0 @@
-[hydra:children]
-control
-agent
-
-[control]
-hydra-control ansible_ssh_host=hydra-control.local ansible_ssh_user=pi ansible_ssh_port=22 remote_user=pi
-
-[agent]
-hydra-agent-1 ansible_ssh_host=hydra-agent-1.local ansible_ssh_user=pi ansible_ssh_port=22 remote_user=pi ansible_ssh_pass=raspberry

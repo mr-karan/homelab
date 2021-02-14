@@ -1,9 +1,0 @@
----
-
-- include_vars: secret.yml
-
-- name: Update the default password of pi user
-  become: yes
-  user:
-    name: "pi"
-    password: "{{ pi_password|password_hash('sha512', pi_password_salt) }}"
