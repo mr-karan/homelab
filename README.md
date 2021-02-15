@@ -20,7 +20,7 @@
   - Cloudflare DNS
   - DigitalOcean Infra
 - [Tailscale VPN](https://tailscale.com/) for connectivity to internal services.
-- [Caddy](https://tailscale.com/) as a reverse proxy for all web services.
+- [Caddy](https://caddyserver.com/) as a reverse proxy for all web services.
 
 ## Services Running
 
