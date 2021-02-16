@@ -46,6 +46,18 @@ resource "cloudflare_record" "website" {
 
 }
 
+resource "cloudflare_record" "notes" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "notes"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+
+  value = "mr-karan.github.io"
+
+}
+
 resource "cloudflare_record" "pihole" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
