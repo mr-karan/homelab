@@ -4,7 +4,7 @@ resource "digitalocean_droplet" "floyd" {
   name               = "floyd"
   region             = "blr1"
   monitoring         = true
-  size               = "s-1vcpu-2gb"
+  size               = "s-2vcpu-4gb"
   ipv6               = true
   private_networking = true
   tags = [
