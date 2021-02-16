@@ -106,8 +106,8 @@ EOF
       }
 
       resources {
-        cpu    = 100
-        memory = 100
+        cpu    = 200
+        memory = 200
       }
 
       template {
