@@ -1,4 +1,4 @@
-job "shynet" {
+job "shynet-app" {
   datacenters = ["hydra"]
   type        = "service"
 
@@ -8,11 +8,6 @@ job "shynet" {
     network {
       port "http" {
         to = 8080
-      }
-
-      port "db" {
-        to           = 5432
-        host_network = "tailscale"
       }
     }
 
@@ -59,6 +54,7 @@ job "shynet" {
         PERFORM_CHECKS_AND_SETUP = "True"
         PORT                     = 8080
         ONLY_SUPERUSERS_CREATE   = "True"
+        NUM_WORKERS              = 2
       }
 
       template {
@@ -77,44 +73,9 @@ job "shynet" {
       }
 
       resources {
-        cpu    = 200
-        memory = 100
+        cpu    = 500
+        memory = 400
       }
-    }
-
-    task "db" {
-      driver = "docker"
-
-      service {
-        name = "shynet-db"
-        tags = ["shynet", "db"]
-        port = "db"
-      }
-
-      config {
-        image = "postgres:13"
-
-        # Bind the data directory to preserve config.
-        mount {
-          type     = "bind"
-          target   = "/var/lib/postgresql/data"
-          source   = "/data/shynet/db/"
-          readonly = false
-        }
-
-        ports = ["db"]
-      }
-
-      env {
-        POSTGRES_DB       = "shynet"
-        POSTGRES_USER     = "shynet"
-        POSTGRES_PASSWORD = "${shynet_postgresql_password}"
-      }
-
-      # resources {
-      #   cpu    = 200
-      #   memory = 200
-      # }
     }
   }
 }
