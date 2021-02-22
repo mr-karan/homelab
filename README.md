@@ -33,9 +33,9 @@
 
 Here's a collection of posts I've written which shows how Hydra has evolved over the years:
 
-- **14 February 2020**: [Home Server with Nomad](https://mrkaran.dev/posts/home-server-nomad/)
-- **23 April 2020**: [Home Server Updates](https://mrkaran.dev/posts/home-server-updates/)
-- **22 September 2019**: [Home Server Setup](https://mrkaran.dev/posts/home-server-setup/)
+- **2021-02-14**: [Home Server with Nomad](https://mrkaran.dev/posts/home-server-nomad/)
+- **2020-04-23**: [Home Server Updates](https://mrkaran.dev/posts/home-server-updates/)
+- **2019-09-22**: [Home Server Setup](https://mrkaran.dev/posts/home-server-setup/)
 
 ## Setup Instructions
 
