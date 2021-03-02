@@ -28,6 +28,14 @@ module "pihole" {
   }
 }
 
+
+module "doggo" {
+  source                  = "./modules/doggo"
+  providers = {
+    nomad = nomad
+  }
+}
+
 module "shynet" {
   source                     = "./modules/shynet"
   shynet_postgresql_password = var.shynet_postgresql_password

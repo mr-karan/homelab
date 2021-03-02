@@ -116,3 +116,16 @@ resource "cloudflare_record" "git" {
   value = var.ips["floyd_public"]
 
 }
+
+
+resource "cloudflare_record" "doggo" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "doggo"
+  type    = "A"
+  ttl     = "1"
+  proxied = "true"
+
+  value = var.ips["floyd_public"]
+
+}

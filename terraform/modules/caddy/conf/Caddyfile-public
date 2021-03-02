@@ -16,3 +16,11 @@ git.mrkaran.dev {
     }
 }
 
+doggo.mrkaran.dev {
+    {{ range service "doggo-web" }}
+    reverse_proxy {{ .Address }}:{{ .Port }}
+    {{ end }}
+    tls {
+	    dns cloudflare "${cloudflare_api_token}"
+    }
+}
