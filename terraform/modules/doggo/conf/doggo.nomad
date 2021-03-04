@@ -29,7 +29,7 @@ job "doggo" {
 
       config {
         # TODO: use dockerhub for now, ghcr giving issues.
-        image = "mrkaran/doggo-api:latest"
+        image = "mrkaran/doggo-api:v0.3.3"
 
         ports = ["http"]
       }
