@@ -28,7 +28,7 @@ job "doggo" {
       }
 
       config {
-        image = "ghcr.io/mr-karan/doggo-api:v0.3.6"
+        image = "ghcr.io/mr-karan/doggo-api:v0.3.7"
 
         ports = ["http"]
       }

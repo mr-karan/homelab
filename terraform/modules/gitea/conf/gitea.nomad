@@ -37,10 +37,16 @@ job "gitea" {
         port = "http"
       }
 
+      service {
+        name = "gitea-ssh"
+        tags = ["gitea", "ssh"]
+        port = "ssh"
+      }
+
       config {
         image = "gitea/gitea:latest"
 
-        ports = ["http"]
+        ports = ["http", "ssh"]
 
         # Bind the config file to container.
         mount {
