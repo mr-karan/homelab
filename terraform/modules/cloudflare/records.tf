@@ -105,6 +105,18 @@ resource "cloudflare_record" "koadings" {
 
 }
 
+resource "cloudflare_record" "grafana" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "grafana"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
+  value = var.ips["floyd_tailscale"]
+
+}
+
 resource "cloudflare_record" "git" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 

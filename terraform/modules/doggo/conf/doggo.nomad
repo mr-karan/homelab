@@ -31,6 +31,13 @@ job "doggo" {
         image = "ghcr.io/mr-karan/doggo-api:v0.3.7"
 
         ports = ["http"]
+
+        logging {
+          type = "json-file"
+          config {
+            labels = "com.hashicorp.nomad.alloc_id,com.hashicorp.nomad.job_id,com.hashicorp.nomad.job_name,com.hashicorp.nomad.namespace,com.hashicorp.nomad.node_id,com.hashicorp.nomad.node_name,com.hashicorp.nomad.task_group_name,com.hashicorp.nomad.task_name"
+          }
+        }
       }
 
       resources {

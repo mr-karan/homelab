@@ -30,7 +30,7 @@ module "pihole" {
 
 
 module "doggo" {
-  source                  = "./modules/doggo"
+  source = "./modules/doggo"
   providers = {
     nomad = nomad
   }
@@ -71,6 +71,13 @@ module "gitea" {
   gitea_internal_token    = var.gitea_internal_token
   gitea_lfs_jwt_secret    = var.gitea_lfs_jwt_secret
   gitea_oauth2_jwt_secret = var.gitea_oauth2_jwt_secret
+  providers = {
+    nomad = nomad
+  }
+}
+
+module "monitoring" {
+  source = "./modules/monitoring"
   providers = {
     nomad = nomad
   }
