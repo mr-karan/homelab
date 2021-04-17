@@ -24,7 +24,7 @@ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install nomad
 nomad -autocomplete-install
-complete -C /usr/local/bin/nomad nomad
+complete -C /usr/bin/nomad nomad
 sudo mkdir --parents /opt/nomad
 ```
 
