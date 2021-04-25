@@ -13,6 +13,10 @@ terraform {
       source = "cloudflare/cloudflare"
     }
 
+    nomad = {
+      source = "hashicorp/nomad"
+      version = "1.4.14"
+    }
   }
   required_version = ">= 0.14"
 }

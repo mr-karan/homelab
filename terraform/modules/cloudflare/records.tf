@@ -46,6 +46,18 @@ resource "cloudflare_record" "website" {
 
 }
 
+resource "cloudflare_record" "talks" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "talks"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+
+  value = "eager-albattani-dc3cb1.netlify.app"
+
+}
+
 resource "cloudflare_record" "notes" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
