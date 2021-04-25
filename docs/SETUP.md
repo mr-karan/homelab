@@ -24,7 +24,7 @@ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install nomad
 nomad -autocomplete-install
-complete -C /usr/local/bin/nomad nomad
+complete -C /usr/bin/nomad nomad
 sudo mkdir --parents /opt/nomad
 ```
 
@@ -144,6 +144,30 @@ ui = true
 connect {
   enabled = true
 }
+```
+
+### Systemd Unit
+
+```
+[Unit]
+Description="HashiCorp Consul - A service mesh solution"
+Documentation=https://www.consul.io/
+Requires=network-online.target
+After=network-online.target
+ConditionFileNotEmpty=/etc/consul.d/consul.hcl
+
+[Service]
+User=consul
+Group=consul
+ExecStart=/usr/bin/consul agent -config-dir=/etc/consul.d/
+ExecReload=/bin/kill --signal HUP $MAINPID
+KillMode=process
+KillSignal=SIGTERM
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 ## Vault
