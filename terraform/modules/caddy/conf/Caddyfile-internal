@@ -38,3 +38,12 @@ grafana.mrkaran.dev {
 	    dns cloudflare "${cloudflare_api_token}"
     }
 }
+
+prometheus.mrkaran.dev {
+    {{ range service "prometheus-web" }}
+    reverse_proxy {{ .Address }}:{{ .Port }}
+    {{ end }}
+    tls {
+	    dns cloudflare "${cloudflare_api_token}"
+    }
+}

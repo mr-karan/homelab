@@ -75,14 +75,33 @@ server {
 
 client {
   enabled       = true
-  options = {
-    "docker.volumes.enabled" = true,
-    "driver.raw_exec.enable" = "1"
-  }
   host_network "tailscale" {
     cidr = "100.119.138.27/32"
     reserved_ports = "22"
   }
+}
+
+plugin "docker" {
+  config {
+    volumes {
+      enabled      = true
+    }
+    extra_labels = ["job_name", "job_id", "task_group_name", "task_name", "namespace", "node_name", "node_id"]
+  }
+}
+
+plugin "raw_exec" {
+  config {
+    enabled = true
+  }
+}
+
+telemetry {
+  collection_interval = "15s"
+  disable_hostname = true
+  prometheus_metrics = true
+  publish_allocation_metrics = true
+  publish_node_metrics = true
 }
 
 consul {

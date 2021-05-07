@@ -129,6 +129,18 @@ resource "cloudflare_record" "grafana" {
 
 }
 
+resource "cloudflare_record" "prometheus" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "prometheus"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
+  value = var.ips["floyd_tailscale"]
+
+}
+
 resource "cloudflare_record" "git" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
