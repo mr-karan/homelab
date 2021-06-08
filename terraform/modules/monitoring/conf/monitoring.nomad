@@ -40,7 +40,7 @@ job "monitoring" {
       }
 
       config {
-        image = "grafana/grafana:latest-ubuntu"
+        image = "grafana/grafana:8.0.0-ubuntu"
 
         ports = ["grafana-http"]
 
@@ -70,7 +70,7 @@ job "monitoring" {
       }
 
       config {
-        image = "prom/prometheus:latest"
+        image = "prom/prometheus:v2.27.1"
 
         args = [
           "--config.file=/etc/prometheus/prometheus.yml",

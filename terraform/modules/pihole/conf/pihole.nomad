@@ -40,7 +40,7 @@ job "pihole" {
       driver = "docker"
 
       config {
-        image = "pihole/pihole:v5.6"
+        image = "pihole/pihole:v5.8.1"
 
         # Bind the data directory to preserve config.
         mount {

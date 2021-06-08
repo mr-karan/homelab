@@ -28,7 +28,7 @@ job "shynet-app" {
       }
 
       config {
-        image = "milesmcc/shynet:0.7.3"
+        image = "milesmcc/shynet:v0.9.1"
 
         # Bind the data directory to preserve config.
         mount {
