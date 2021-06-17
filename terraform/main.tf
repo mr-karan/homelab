@@ -45,14 +45,6 @@ module "shynet" {
   }
 }
 
-module "joplin" {
-  source                     = "./modules/joplin"
-  joplin_postgresql_password = var.joplin_postgresql_password
-  providers = {
-    nomad = nomad
-  }
-}
-
 module "restic" {
   source                = "./modules/restic"
   restic_b2_account_id  = var.restic_b2_account_id
