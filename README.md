@@ -27,6 +27,7 @@
 - [Pihole](https://pi-hole.net/)
 - [Gitea](https://gitea.io/)
 - [Shynet](https://github.com/milesmcc/shynet)
+- [Syncthing](https://syncthing.net/)
 
 ## Blog Posts
 
