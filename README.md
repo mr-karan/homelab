@@ -27,7 +27,6 @@
 - [Pihole](https://pi-hole.net/)
 - [Gitea](https://gitea.io/)
 - [Shynet](https://github.com/milesmcc/shynet)
-- [Joplin Sync Server](https://github.com/laurent22/joplin/tree/dev/packages/server)
 
 ## Blog Posts
 

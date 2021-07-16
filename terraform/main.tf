@@ -74,3 +74,10 @@ module "monitoring" {
     nomad = nomad
   }
 }
+
+module "syncthing" {
+  source = "./modules/syncthing"
+  providers = {
+    nomad = nomad
+  }
+}

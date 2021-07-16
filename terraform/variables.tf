@@ -22,12 +22,6 @@ variable "shynet_django_secret_key" {
   description = "Django secret key generated for Shynet"
 }
 
-variable "joplin_postgresql_password" {
-  type        = string
-  description = "Password for joplin PostgreSQL server"
-}
-
-
 variable "gitea_secret_key" {
   type        = string
   description = "Global secret key"

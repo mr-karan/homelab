@@ -94,17 +94,6 @@ resource "cloudflare_record" "shynet" {
 
 }
 
-resource "cloudflare_record" "joplin" {
-  zone_id = cloudflare_zone.mrkaran_dev.id
-
-  name    = "joplin"
-  type    = "A"
-  ttl     = "1"
-  proxied = "false"
-  value   = var.ips["floyd_tailscale"]
-
-}
-
 resource "cloudflare_record" "koadings" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
@@ -133,6 +122,18 @@ resource "cloudflare_record" "prometheus" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
   name    = "prometheus"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+
+  value = var.ips["floyd_tailscale"]
+
+}
+
+resource "cloudflare_record" "syncthing" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "syncthing"
   type    = "A"
   ttl     = "1"
   proxied = "false"
