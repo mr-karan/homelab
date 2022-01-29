@@ -1,0 +1,40 @@
+services:
+  miniflux:
+    image: miniflux/miniflux:latest
+    restart: unless-stopped
+    container_name: miniflux
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://miniflux:{{miniflux_pg_password}}@db/miniflux?sslmode=disable
+      - RUN_MIGRATIONS=1
+      - CREATE_ADMIN=1
+      - ADMIN_USERNAME={{miniflux_admin_user}}
+      - ADMIN_PASSWORD={{miniflux_admin_pass}}
+      - BASE_URL=https://miniflux.mrkaran.dev
+    networks:
+      - miniflux
+      - internal
+
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=miniflux
+      - POSTGRES_PASSWORD={{miniflux_pg_password}}
+    volumes:
+      - /data/miniflux/db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "miniflux"]
+      interval: 10s
+      start_period: 30s
+    networks:
+      - miniflux
+
+networks:
+  internal:
+    name: caddy_internal
+    external: true
+  miniflux:
+    name: miniflux

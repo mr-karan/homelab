@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  linkding:
+    container_name: linkding
+    image: sissbruecker/linkding:1.8.5
+    volumes:
+      - "/data/linkding:/etc/linkding/data"
+    environment:
+      - DJANGO_SUPERUSER_EMAIL={{linkding_admin_email}}
+      - DJANGO_SUPERUSER_USERNAME={{linkding_admin_username}}
+      - DJANGO_SUPERUSER_PASSWORD={{linkding_admin_password}}
+    restart: unless-stopped
+    networks:
+      - internal
+      - linkding
+
+networks:
+  internal:
+    name: caddy_internal
+    external: true
+  linkding:
+    name: linkding

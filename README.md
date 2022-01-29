@@ -23,6 +23,7 @@
 
 - [Adguard Home](https://github.com/AdguardTeam/AdGuardHome)
 - [Plausible](https://plausible.io/)
+- [Linkding](https://github.com/sissbruecker/linkding)
 
 ## Blog Posts
 

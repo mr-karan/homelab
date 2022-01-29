@@ -9,3 +9,5 @@
     - import_tasks: ./tasks/plausible.yml
     - import_tasks: ./tasks/caddy.yml
     - import_tasks: ./tasks/adguard.yml
+    - import_tasks: ./tasks/linkding.yml
+    - import_tasks: ./tasks/miniflux.yml

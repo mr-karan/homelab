@@ -4,3 +4,17 @@ adguard.mrkaran.dev {
 	    dns cloudflare {{caddy_cloudflare_api_token}}
     }
 }
+
+bookmarks.mrkaran.dev {
+    reverse_proxy http://linkding:9090
+    tls {
+	    dns cloudflare {{caddy_cloudflare_api_token}}
+    }
+}
+
+feed.mrkaran.dev {
+    reverse_proxy http://miniflux:8080
+    tls {
+	    dns cloudflare {{caddy_cloudflare_api_token}}
+    }
+}

@@ -29,3 +29,23 @@ resource "cloudflare_record" "adguard" {
   proxied = "false"
   value   = "100.111.91.100"
 }
+
+resource "cloudflare_record" "bookmarks" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "bookmarks"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "100.111.91.100"
+}
+
+resource "cloudflare_record" "feed" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "feed"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "100.111.91.100"
+}
