@@ -1,0 +1,22 @@
+services:
+  adguard:
+    image: adguard/adguardhome:v0.107.3
+    container_name: adguard
+    ports:
+      - 100.111.91.100:53:53/tcp
+      - 100.111.91.100:53:53/udp
+      - 100.111.91.100:3000:3000/tcp
+    volumes:
+      - /data/adguard/work:/opt/adguardhome/work
+      - /data/adguard/conf:/opt/adguardhome/conf
+    restart: unless-stopped
+    networks:
+      - adguard
+      - internal
+
+networks:
+  internal:
+    name: caddy_internal
+    external: true
+  adguard:
+    name: adguard

@@ -1,0 +1,31 @@
+---
+
+- name: Register working directory
+  set_fact:
+    adguard_project_dir: ~/services/adguard
+
+- name: Create project directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{adguard_project_dir}}"
+
+- name: Copy docker-compose file.
+  template:
+    src: adguard/docker-compose.j2.yml
+    dest: "{{adguard_project_dir}}/docker-compose.yml"
+  register: output
+
+- name: Start all containers
+  docker_compose:
+    project_src: "{{adguard_project_dir}}"
+    state: present
+    remove_orphans: true
+
+- name: Restart all containers
+  docker_compose:
+    project_src: "{{adguard_project_dir}}"
+    restarted: yes
+  when: output.changed

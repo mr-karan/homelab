@@ -1,0 +1,6 @@
+adguard.mrkaran.dev {
+    reverse_proxy http://adguard:3000
+    tls {
+	    dns cloudflare {{caddy_cloudflare_api_token}}
+    }
+}

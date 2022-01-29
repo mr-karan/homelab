@@ -17,5 +17,15 @@ resource "cloudflare_record" "pls" {
   type    = "A"
   ttl     = "1"
   proxied = "true"
-  value   = "174.138.120.194"
+  value   = "139.59.64.199"
+}
+
+resource "cloudflare_record" "adguard" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "adguard"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "100.111.91.100"
 }

@@ -5,14 +5,28 @@ services:
     image: mrkaran/caddy:2.2.1
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - "139.59.64.199:80:80"
+      - "139.59.64.199:443:443"
     volumes:
       - ./Caddyfile_public:/etc/caddy/Caddyfile
       - /data/caddy_public:/data
     networks:
       - public
 
+  caddy_internal:
+    image: mrkaran/caddy:2.2.1
+    restart: unless-stopped
+    ports:
+      - "100.111.91.100:80:80"
+      - "100.111.91.100:443:443"
+    volumes:
+      - ./Caddyfile_internal:/etc/caddy/Caddyfile
+      - /data/caddy_internal:/data
+    networks:
+      - internal
+
 networks:
   public:
     name: caddy_public
+  internal:
+    name: caddy_internal
