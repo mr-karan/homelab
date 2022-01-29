@@ -17,3 +17,5 @@ If you fail at this step, you need to debug before proceeding.
 
 - To encrypt the string `ansible-vault encrypt_string '<AUTH-KEY>' --name 'tailscale_auth_key`
 - To run the playbook: `ansible-playbook -i inventory playbook.yml --tag=tailscale --ask-vault-pass`
+
+The easier option ofcourse, is to just run `tailscale login` from inside the node.

@@ -1,9 +1,0 @@
-[hydra:children]
-floyd
-
-[floyd]
-floyd ansible_ssh_host=floyd ansible_ssh_user=karan ansible_ssh_port=22 remote_ssh_user=karan
-
-[floyd:vars]
-username=karan
-github_ssh_key_url=https://github.com/mr-karan.keys

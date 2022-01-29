@@ -1,0 +1,11 @@
+---
+# Default theme
+oh_my_zsh_theme: robbyrussell
+
+# Default plugins
+oh_my_zsh_plugins:
+  - git
+
+# Wether to install by default for all specified users.
+# May be overridden by `oh_my_zsh_install` under each user.
+oh_my_zsh_install: yes

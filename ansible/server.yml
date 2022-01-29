@@ -1,0 +1,39 @@
+---
+
+- hosts: 'hydra'
+  roles:
+    - role: bootstrap
+      tags:
+        - bootstrap
+
+    - role: docker
+      become: true
+      tags:
+        - docker
+
+    - role: gantsign.oh-my-zsh
+      vars:
+        oh_my_zsh_theme: "steeef"
+        oh_my_zsh_plugins:
+          - git
+          - pip
+          - npm
+          - python
+          - github
+          - history
+          - dircycle
+          - gitignore
+          - dirhistory
+          - git-extras
+          - last-working-dir
+          - common-aliases
+        users:
+          - username: root
+          - username: "{{ ansible_user }}"
+      tags:
+        - zsh
+
+    - role: tailscale
+      become: true
+      tags:
+        - tailscale

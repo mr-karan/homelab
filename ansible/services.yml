@@ -1,0 +1,10 @@
+---
+
+- hosts: 'hydra'
+  tasks:
+    - name: Install docker-compose python package
+      pip:
+        name: docker-compose==1.29.2 
+
+    - import_tasks: ./tasks/plausible.yml
+    - import_tasks: ./tasks/caddy.yml

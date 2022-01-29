@@ -1,0 +1,5 @@
+- name: enable tailscaled service
+  service:
+    name: tailscaled
+    state: started
+    enabled: yes

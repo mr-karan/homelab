@@ -1,0 +1,29 @@
+name: Release
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+
+  release:
+    name: Release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Install Ansible
+        run: pip3 install --no-compile ansible-base
+
+      - name: Trigger a new import on Galaxy
+        run: >-
+          ansible-galaxy role import
+          --api-key ${{ secrets.GALAXY_API_KEY }}
+          ${GITHUB_REPOSITORY%%/*} ${GITHUB_REPOSITORY#*/}

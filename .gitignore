@@ -1,7 +1,6 @@
 .vagrant
 packer*
 www
-inventory
 *.tfvars
 .terraform.tfstate.lock.info
 .terraform
@@ -12,3 +11,5 @@ inventory
 AdGuardHome.yaml
 .ci-vault-pass
 consul-keys.txt
+
+.vault_password

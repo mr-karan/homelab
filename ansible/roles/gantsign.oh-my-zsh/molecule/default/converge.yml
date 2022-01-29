@@ -1,0 +1,68 @@
+---
+- name: Converge
+  hosts: all
+
+  pre_tasks:
+
+    - name: update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+      changed_when: no
+
+    - name: create test users
+      become: yes
+      user:
+        name: '{{ item }}'
+        home: '/home/{{ item }}'
+        createhome: yes
+      with_items:
+        - test_usr1
+        - test_usr2
+        - test_usr3
+        - test_usr4
+        - test_usr5
+
+    - name: install console-setup file
+      become: yes
+      copy:
+        src: tests/console-setup.sh
+        dest: /etc/default/console-setup
+        force: no
+        owner: root
+        group: root
+        mode: 'u=rwx,go=r'
+
+  roles:
+    - role: ansible-role-oh-my-zsh
+      oh_my_zsh_theme: test_theme1
+      oh_my_zsh_plugins:
+        - test_plugin1
+        - test_plugin2
+      users:
+        - username: test_usr1
+        - username: test_usr2
+          oh_my_zsh:
+            theme: test_theme2
+            plugins:
+              - test_plugin3
+              - test_plugin4
+        - username: test_usr3
+          oh_my_zsh:
+            install: no
+
+    - role: ansible-role-oh-my-zsh
+      oh_my_zsh_theme: test_theme1
+      oh_my_zsh_plugins:
+        - test_plugin1
+        - test_plugin2
+      oh_my_zsh_install: no
+      users:
+        - username: test_usr4
+        - username: test_usr5
+          oh_my_zsh:
+            install: yes
+            theme: test_theme2
+            plugins:
+              - test_plugin3
+              - test_plugin4

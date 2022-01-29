@@ -1,0 +1,19 @@
+# EditorConfig: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Defaults for all editor files
+[*]
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+# Files with a smaller indent
+[*.yml]
+indent_size = 2
+
+# Jinja2 template files
+[*.j2]
+end_of_line = lf

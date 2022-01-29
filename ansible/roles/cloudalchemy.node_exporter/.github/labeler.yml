@@ -1,0 +1,31 @@
+---
+# configuration spec at https://github.com/actions/labeler/blob/master/README.md
+area/docs:
+  - meta/*
+  - CHANGELOG.md
+  - CONTRIBUTING.md
+  - TROUBLESHOOTING.md
+  - LICENSE
+  - README.md
+area/tests:
+  - molecule/*
+  - molecule/**/*
+  - .ansible-lint
+  - .yamllint
+  - test-requirements.txt
+area/automation:
+  - .circleci/*
+  - .github/*
+  - .github/**/*
+  - .mergify.yml
+area/vars:
+  - defaults/*
+  - vars/*
+  - vars/**/*
+area/tasks:
+  - handlers/*
+  - tasks/*
+  - tasks/**/*
+area/jinja:
+  - templates/*
+  - templates/**/*

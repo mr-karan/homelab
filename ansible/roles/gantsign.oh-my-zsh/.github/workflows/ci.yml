@@ -1,0 +1,73 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request: {}
+
+env:
+  MOLECULEW_USE_SYSTEM: 'true'
+  PY_COLORS: '1'
+  ANSIBLE_FORCE_COLOR: '1'
+
+jobs:
+  test:
+    name: Molecule test
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        ansible-version:
+          - '2.9.1'
+          - '2.8.16'
+
+    env:
+      MOLECULEW_ANSIBLE: ${{ matrix.ansible-version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Cache Molecule
+        id: molecule-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.moleculew
+          key: Ansible-${{ matrix.ansible-version }}-${{ hashFiles('.moleculew/**') }}
+
+      - name: Install dependencies
+        if: steps.molecule-cache.outputs.cache-hit != 'true'
+        run: ./moleculew wrapper-install
+
+      - name: Dependency versions
+        run: ./moleculew wrapper-versions
+
+      - name: Login to Docker Hub
+        if: '!github.event.pull_request || github.event.pull_request.head.repo.full_name == github.repository'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Molecule test
+        run: ./moleculew test
+
+      - name: Compact cache
+        if: steps.molecule-cache.outputs.cache-hit != 'true'
+        run: find ~/.moleculew -name '__pycache__' -exec rm -rf {} +
+
+  test-all:
+    if: ${{ always() }}
+    name: Test (matrix)
+    runs-on: ubuntu-18.04
+    needs: test
+    steps:
+      - name: Check test matrix status
+        run: "[[ '${{ needs.test.result }}' == 'success' ]] || exit 1"

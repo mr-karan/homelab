@@ -9,7 +9,7 @@ data "http" "cloudflare_ip6_addrs" {
 resource "digitalocean_firewall" "web" {
   name = "allow-http-https-cloudflare"
 
-  droplet_ids = [digitalocean_droplet.floyd.id]
+  droplet_ids = [digitalocean_droplet.parvaaz.id]
   inbound_rule {
     protocol   = "tcp"
     port_range = "80"
@@ -33,7 +33,7 @@ resource "digitalocean_firewall" "web" {
 resource "digitalocean_firewall" "icmp" {
   name = "allow-icmp-all"
 
-  droplet_ids = [digitalocean_droplet.floyd.id]
+  droplet_ids = [digitalocean_droplet.parvaaz.id]
   inbound_rule {
     protocol         = "icmp"
     source_addresses = ["0.0.0.0/0", "::/0"]
@@ -44,7 +44,7 @@ resource "digitalocean_firewall" "icmp" {
 resource "digitalocean_firewall" "vpn" {
   name = "allow-all-tailscale-inbound"
 
-  droplet_ids = [digitalocean_droplet.floyd.id]
+  droplet_ids = [digitalocean_droplet.parvaaz.id]
 
   inbound_rule {
     protocol         = "tcp"
@@ -63,7 +63,7 @@ resource "digitalocean_firewall" "vpn" {
 resource "digitalocean_firewall" "ssh" {
   name = "ssh-inbound"
 
-  droplet_ids = [digitalocean_droplet.floyd.id]
+  droplet_ids = [digitalocean_droplet.parvaaz.id]
 
   inbound_rule {
     protocol         = "tcp"
@@ -76,7 +76,7 @@ resource "digitalocean_firewall" "ssh" {
 resource "digitalocean_firewall" "outbound-all" {
   name = "allow-all-outbound"
 
-  droplet_ids = [digitalocean_droplet.floyd.id]
+  droplet_ids = [digitalocean_droplet.parvaaz.id]
 
   outbound_rule {
     protocol              = "tcp"

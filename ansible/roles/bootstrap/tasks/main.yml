@@ -1,0 +1,18 @@
+---
+
+- import_tasks: apt.yml
+
+- import_tasks: locale.yml
+
+- import_tasks: user.yml
+
+- import_tasks: ssh.yml
+
+- import_tasks: timezone.yml
+
+- import_tasks: hostname.yml
+
+- name: Reboot server
+  debug:
+    msg: Rebooting server...
+  notify: Reboot host and wait for it to restart

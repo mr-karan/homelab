@@ -1,0 +1,39 @@
+---
+- name: Update apt cache and upgrade
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: "yes"
+
+- name: Install dependencies
+  become: yes
+  apt:
+      name: "{{ packages }}"
+  vars:
+      packages:
+        - apt-transport-https
+        - vim
+        - curl
+        - jq
+        - fzf
+        - python
+        - python3-pip
+        - python-apt
+        - python3-apt
+        - gnupg2
+        - gnupg-agent
+
+- name: install unattended-upgrades
+  apt:
+    name: "unattended-upgrades"
+    state: present
+
+- name: Remove useless packages from the cache
+  become: yes
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  become: yes
+  apt:
+    autoremove: yes

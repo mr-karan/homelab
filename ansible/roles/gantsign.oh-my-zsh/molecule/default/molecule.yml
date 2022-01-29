@@ -1,0 +1,34 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+
+platforms:
+  - name: ansible-role-oh-my-zsh-debian-min
+    image: debian:9
+  - name: ansible-role-oh-my-zsh-debian-max
+    image: debian:11
+  - name: ansible-role-oh-my-zsh-ubuntu-min
+    image: ubuntu:18.04
+  - name: ansible-role-oh-my-zsh-ubuntu-max
+    image: ubuntu:20.04
+  - name: ansible-role-oh-my-zsh-rocky
+    image: rockylinux/rockylinux:8
+  - name: ansible-role-oh-my-zsh-fedora
+    image: fedora:35
+  - name: ansible-role-oh-my-zsh-opensuse
+    image: opensuse/leap:15.3
+
+provisioner:
+  name: ansible
+
+verifier:
+  name: testinfra

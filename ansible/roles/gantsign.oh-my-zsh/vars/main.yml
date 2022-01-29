@@ -1,0 +1,5 @@
+---
+# Dependencies for Oh My Zsh
+oh_my_zsh_dependencies:
+  - git
+  - zsh
