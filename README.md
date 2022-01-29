@@ -24,6 +24,7 @@
 - [Adguard Home](https://github.com/AdguardTeam/AdGuardHome)
 - [Plausible](https://plausible.io/)
 - [Linkding](https://github.com/sissbruecker/linkding)
+- [Miniflux](https://miniflux.app/)
 
 ## Blog Posts
 
