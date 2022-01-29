@@ -12,11 +12,8 @@
 
 ## Overview
 
-- Single node [Nomad](https://www.nomadproject.io/) server for running workloads.
-- [Consul](https://www.consul.io/) agent co-located for service discovery. 
 - [Ansible](https://www.ansible.com/) scripts to boostrap the node.
 - [Terraform](https://www.terraform.io/) modules for managing the following services:
-  - Nomad jobs
   - Cloudflare DNS
   - DigitalOcean Infra
 - [Tailscale VPN](https://tailscale.com/) for connectivity to internal services.
@@ -24,10 +21,8 @@
 
 ## Services Running
 
-- [Pihole](https://pi-hole.net/)
-- [Gitea](https://gitea.io/)
-- [Shynet](https://github.com/milesmcc/shynet)
-- [Syncthing](https://syncthing.net/)
+- [Adguard Home](https://github.com/AdguardTeam/AdGuardHome)
+- [Plausible](https://plausible.io/)
 
 ## Blog Posts
 
@@ -37,6 +32,8 @@ Here's a collection of posts I've written which shows how Hydra has evolved over
 - **2020-04-23**: [Home Server Updates](https://mrkaran.dev/posts/home-server-updates/)
 - **2019-09-22**: [Home Server Setup](https://mrkaran.dev/posts/home-server-setup/)
 
-## Setup Instructions
+## Updates
 
-Visit [SETUP.md](./docs/SETUP.md) for following instructions on setting up Nomad and Consul.
+If you came here from [Running Nomad for home server](https://mrkaran.dev/posts/home-server-nomad/) blog post, then you can still checkout the `hashistack` branch but I am not using Nomad for my personal setup. As mentioned in the blog post, I wanted to tinker with a new orchestration system. Since now I am using it at my current $Work for production workloads, that purpose was achieved!
+
+For my personal self hosting needs, I switched to a very simple Ansible based `docker-compose` system. I'll have a small writeup on it soon, but the general idea is that it makes it super easy and convenient to deploy popular FOSS tools using existing `docker-compose` files, hence I switched to it.
