@@ -11,30 +11,29 @@
     mode: '0755'
   with_items:
     - "{{caddy_project_dir}}"
-    - "{{caddy_project_dir}}/clickhouse"
 
 - name: Copy docker-compose file.
   template:
     src: caddy/docker-compose.j2.yml
     dest: "{{caddy_project_dir}}/docker-compose.yml"
-  register: file_docker_compose
+  register: output
 
 - name: Copy config files
   template:
     src: "{{ item }}"
     dest: "{{caddy_project_dir}}/{{ item | basename | regex_replace('.j2$', '') }}"
   with_fileglob:
-    - ../templates/caddy/Caddyfile.j2
-  register: file_config
+    - ../templates/caddy/Caddyfile_public.j2
+  register: output
 
 - name: Start all containers
   docker_compose:
     project_src: "{{caddy_project_dir}}"
     state: present
+    remove_orphans: true
 
 - name: Restart all containers
   docker_compose:
     project_src: "{{caddy_project_dir}}"
     restarted: yes
-  when: true
-
+  when: output.changed

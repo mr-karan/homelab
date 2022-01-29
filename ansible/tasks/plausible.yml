@@ -17,11 +17,13 @@
   template:
     src: plausible/docker-compose.j2.yml
     dest: "{{plausible_project_dir}}/docker-compose.yml"
+  register: output
 
 - name: Copy env file.
   template:
     src: plausible/plausible-conf.j2.env
     dest: "{{plausible_project_dir}}/plausible-conf.env"
+  register: output
 
 - name: Copy Clickhouse config dir
   template:
@@ -29,21 +31,16 @@
     dest: "{{plausible_project_dir}}/clickhouse/{{ item | basename }}"
   with_fileglob:
     - ../templates/plausible/clickhouse/*.xml
-
-- name: Copy Clickhouse config dir
-  template:
-    src: "{{ item }}"
-    dest: "{{plausible_project_dir}}/clickhouse/{{ item | basename }}"
-  with_fileglob:
-    - ../templates/plausible/clickhouse/*.xml
+  register: output
 
 - name: Start all containers
   docker_compose:
     project_src: "{{plausible_project_dir}}"
     state: present
+    remove_orphans: true
 
 - name: Restart all containers
   docker_compose:
     project_src: "{{plausible_project_dir}}"
     restarted: yes
-  when: true
+  when: output.changed

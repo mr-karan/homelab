@@ -1,12 +1,18 @@
 version: "3.7"
 
 services:
-  caddy:
+  caddy_public:
     image: mrkaran/caddy:2.2.1
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - /data/caddy:/data
+      - ./Caddyfile_public:/etc/caddy/Caddyfile
+      - /data/caddy_public:/data
+    networks:
+      - public
+
+networks:
+  public:
+    name: caddy_public
