@@ -1,7 +1,0 @@
-*.retry
-*.log
-.molecule
-.cache
-__pycache__/
-.pytest_cache
-.tox

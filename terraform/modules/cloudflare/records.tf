@@ -49,3 +49,13 @@ resource "cloudflare_record" "feed" {
   proxied = "false"
   value   = "100.111.91.100"
 }
+
+resource "cloudflare_record" "grafana" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "grafana"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "100.111.91.100"
+}

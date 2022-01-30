@@ -18,3 +18,10 @@ feed.mrkaran.dev {
 	    dns cloudflare {{caddy_cloudflare_api_token}}
     }
 }
+
+grafana.mrkaran.dev {
+    reverse_proxy http://grafana:3000
+    tls {
+	    dns cloudflare {{caddy_cloudflare_api_token}}
+    }
+}

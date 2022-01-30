@@ -11,3 +11,4 @@
     - import_tasks: ./tasks/adguard.yml
     - import_tasks: ./tasks/linkding.yml
     - import_tasks: ./tasks/miniflux.yml
+    - import_tasks: ./tasks/monitoring.yml

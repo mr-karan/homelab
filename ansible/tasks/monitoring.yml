@@ -1,0 +1,39 @@
+---
+
+- name: Register working directory
+  set_fact:
+    monitoring_project_dir: ~/services/monitoring
+
+- name: Create project directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{monitoring_project_dir}}"
+
+- name: Copy docker-compose file.
+  template:
+    src: monitoring/docker-compose.j2.yml
+    dest: "{{monitoring_project_dir}}/docker-compose.yml"
+  register: output
+
+- name: Copy config files
+  template:
+    src: "{{ item }}"
+    dest: "{{monitoring_project_dir}}/{{ item | basename | regex_replace('.j2', '') }}"
+  with_fileglob:
+    - ../templates/monitoring/prometheus.j2.yml
+  register: output
+
+- name: Start all containers
+  docker_compose:
+    project_src: "{{monitoring_project_dir}}"
+    state: present
+    remove_orphans: true
+
+- name: Restart all containers
+  docker_compose:
+    project_src: "{{monitoring_project_dir}}"
+    restarted: yes
+  when: output.changed

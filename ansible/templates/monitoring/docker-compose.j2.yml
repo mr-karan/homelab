@@ -1,0 +1,83 @@
+services:
+  nodeexporter:
+    image: prom/node-exporter:v1.3.1
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.rootfs=/rootfs"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.43.0
+    container_name: cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg:/dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /cgroup:/cgroup:ro
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  victoriametrics:
+    container_name: victoriametrics
+    image: victoriametrics/victoria-metrics:v1.72.0
+    volumes:
+      - /data/monitoring/victoriametrics:/storage
+    command:
+      - "--storageDataPath=/storage"
+      - "--graphiteListenAddr=:2003"
+      - "--opentsdbListenAddr=:4242"
+      - "--httpListenAddr=:8428"
+      - "--influxListenAddr=:8089"
+    networks:
+      - monitoring
+    restart: unless-stopped
+
+  vmagent:
+    container_name: vmagent
+    image: victoriametrics/vmagent:v1.72.0
+    depends_on:
+      - "victoriametrics"
+    expose:
+      - 8429
+    volumes:
+      - /data/monitoring/vmagent:/vmagentdata
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--promscrape.config=/etc/prometheus/prometheus.yml"
+      - "--remoteWrite.url=http://victoriametrics:8428/api/v1/write"
+    networks:
+      - monitoring
+    restart: unless-stopped
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:8.3.4
+    depends_on:
+      - "victoriametrics"
+    volumes:
+      - /data/monitoring/grafana:/var/lib/grafana
+    networks:
+      - monitoring
+      - internal
+    restart: unless-stopped
+
+networks:
+  internal:
+    name: caddy_internal
+    external: true
+  monitoring:
+    name: monitoring
