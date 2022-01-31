@@ -74,6 +74,7 @@ services:
       - monitoring
       - internal
     restart: unless-stopped
+    user: "472"
 
 networks:
   internal:

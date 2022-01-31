@@ -26,6 +26,16 @@
     - ../templates/monitoring/prometheus.j2.yml
   register: output
 
+- name: Make grafana data directory writeable to Grafana container user
+  become: true
+  ansible.builtin.file:
+    path: /data/monitoring/grafana
+    state: directory
+    recurse: yes
+    owner: 472
+    group: 472
+    mode: 0755
+
 - name: Start all containers
   docker_compose:
     project_src: "{{monitoring_project_dir}}"
