@@ -7,3 +7,4 @@ parvaaz ansible_user=karan
 [internal:vars]
 username=karan
 github_ssh_key_url=https://github.com/mr-karan.keys
+ansible_python_interpreter=/usr/bin/python3

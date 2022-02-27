@@ -33,7 +33,7 @@ services:
 
   victoriametrics:
     container_name: victoriametrics
-    image: victoriametrics/victoria-metrics:v1.72.0
+    image: victoriametrics/victoria-metrics:v1.73.0
     volumes:
       - /data/monitoring/victoriametrics:/storage
     command:
@@ -48,7 +48,7 @@ services:
 
   vmagent:
     container_name: vmagent
-    image: victoriametrics/vmagent:v1.72.0
+    image: victoriametrics/vmagent:v1.73.0
     depends_on:
       - "victoriametrics"
     expose:
@@ -65,7 +65,7 @@ services:
 
   grafana:
     container_name: grafana
-    image: grafana/grafana:8.3.4
+    image: grafana/grafana:8.4.2
     depends_on:
       - "victoriametrics"
     volumes:

@@ -25,3 +25,10 @@ grafana.mrkaran.dev {
 	    dns cloudflare {{caddy_cloudflare_api_token}}
     }
 }
+
+sync.mrkaran.dev {
+    reverse_proxy http://syncthing:8384
+    tls {
+	    dns cloudflare {{caddy_cloudflare_api_token}}
+    }
+}

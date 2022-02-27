@@ -59,3 +59,13 @@ resource "cloudflare_record" "grafana" {
   proxied = "false"
   value   = "100.111.91.100"
 }
+
+resource "cloudflare_record" "sync" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "sync"
+  type    = "A"
+  ttl     = "1"
+  proxied = "false"
+  value   = "100.111.91.100"
+}

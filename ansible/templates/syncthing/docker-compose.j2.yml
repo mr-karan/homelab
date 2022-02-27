@@ -1,0 +1,27 @@
+services:
+  syncthing:
+    image: linuxserver/syncthing:1.19.0
+    container_name: syncthing
+    hostname: parvaaz
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - /data/syncthing/config:/config
+    ports:
+      - 100.111.91.100:8384:8384
+      - 100.111.91.100:22000:22000/tcp
+      - 100.111.91.100:22000:22000/udp
+      - 100.111.91.100:21027:21027/udp
+    restart: unless-stopped
+    networks:
+      - syncthing
+      - internal
+
+networks:
+  internal:
+    name: caddy_internal
+    external: true
+  syncthing:
+    name: syncthing
