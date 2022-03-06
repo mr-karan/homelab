@@ -5,3 +5,10 @@ pls.mrkaran.dev {
     }
     rewrite /pls.js /js/plausible.js
 }
+
+doggo.mrkaran.dev {
+    reverse_proxy http://doggo:8080
+    tls {
+	    dns cloudflare {{caddy_cloudflare_api_token}}
+    }
+}

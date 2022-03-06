@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  doggo:
+    container_name: doggo
+    image: ghcr.io/mr-karan/doggo-api:v0.4.0
+    volumes:
+      - "/data/doggo:/etc/doggo/data"
+    expose:
+      - 8080
+    restart: unless-stopped
+    networks:
+      - web
+      - doggo
+
+networks:
+  web:
+    name: caddy_public
+    external: true
+  doggo:
+    name: doggo
