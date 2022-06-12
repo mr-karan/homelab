@@ -70,7 +70,6 @@ resource "cloudflare_record" "sync" {
   value   = "100.111.91.100"
 }
 
-
 resource "cloudflare_record" "doggo" {
   zone_id = cloudflare_zone.mrkaran_dev.id
 
@@ -79,4 +78,16 @@ resource "cloudflare_record" "doggo" {
   ttl     = "1"
   proxied = "true"
   value   = "139.59.64.199"
+}
+
+resource "cloudflare_record" "notes" {
+  zone_id = cloudflare_zone.mrkaran_dev.id
+
+  name    = "notes"
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "false"
+
+  value = "mr-karan.github.io"
+
 }
