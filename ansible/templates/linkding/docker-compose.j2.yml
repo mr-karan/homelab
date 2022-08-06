@@ -3,7 +3,7 @@ version: "3"
 services:
   linkding:
     container_name: linkding
-    image: sissbruecker/linkding:1.8.5
+    image: sissbruecker/linkding:1.13.0
     volumes:
       - "/data/linkding:/etc/linkding/data"
     environment:

@@ -1,6 +1,6 @@
 services:
   miniflux:
-    image: miniflux/miniflux:2.0.35
+    image: miniflux/miniflux:2.0.37
     restart: unless-stopped
     container_name: miniflux
     depends_on:

@@ -1,6 +1,6 @@
 services:
   adguard:
-    image: adguard/adguardhome:v0.107.3
+    image: adguard/adguardhome:v0.107.9
     container_name: adguard
     ports:
       - 100.111.91.100:53:53/tcp
